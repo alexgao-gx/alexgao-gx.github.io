@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex Gao · UX Engineer</title>
+<meta name="description" content="Portfolio of Alex (Zhiheng Li) Gao — Senior UX Engineer / Front-End Engineer. Design systems, accessibility, AI-powered interfaces, and data-heavy admin tools in React + TypeScript.">
+<meta property="og:title" content="Alex (Zhiheng Li) Gao · UX Engineer">
+<meta property="og:description" content="Fifteen years designing and building enterprise front ends. Case studies with sourced outcomes, a live AI-pattern demo, and a page that publishes its own specs.">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230F6CBD%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Segoe UI,Arial,sans-serif%27 font-size=%2718%27 font-weight=%27700%27 fill=%27%23fff%27 text-anchor=%27middle%27%3EA%3C/text%3E%3C/svg%3E">
+<script>
+/* Apply a persisted theme before first paint so the page never flashes. */
+(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();
+</script>
+<style>
+/* =====================================================================
+   Tokens — named in Fluent 2 convention so a Fluent UI reviewer can read
+   them. This page does not load Fluent UI React; it follows its vocabulary.
+   Every chromatic token has a light value here and a dark alias below.
+   ===================================================================== */
+:root{
+  color-scheme: light;
+
+  --colorNeutralBackground3:#F5F5F5;   /* page ground */
+  --colorNeutralBackground1:#FFFFFF;   /* surface */
+  --colorNeutralBackground2:#FAFAFA;   /* subtle band */
+  --colorNeutralForeground1:#242424;
+  --colorNeutralForeground2:#424242;
+  --colorNeutralForeground3:#616161;
+  --colorNeutralStroke2:#E0E0E0;       /* hairline dividers only */
+  --colorNeutralStrokeAccessible:#616161; /* control boundaries, >=3:1 */
+  --colorBrandForeground1:#0F6CBD;
+  --colorBrandBackground:#0F6CBD;
+  --colorBrandBackgroundHover:#115EA3;
+  --colorBrandBackground2:#EBF3FC;
+  --colorNeutralForegroundOnBrand:#FFFFFF;
+  --colorPaletteGreenForeground1:#0E700E;
+  --colorPaletteGreenBackground1:#F1FAF1;
+  --colorPaletteMarigoldForeground1:#8A5300;
+  --colorPaletteMarigoldBackground1:#FDF6E3;
+  --colorPaletteRedForeground1:#B10E1C;
+  --colorPaletteRedBackground1:#FDF3F4;
+  --colorRedline:#C0281A;              /* specs mode only — 5.4:1 on ground */
+  --colorRedlineOnFill:#FFFFFF;
+  --colorStrokeFocus1:#FFFFFF;
+  --colorStrokeFocus2:#000000;
+  --shadow4:0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.14);
+
+  --fontFamilyBase:"Segoe UI Variable Text","Segoe UI Variable","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --fontFamilyMonospace:"Cascadia Mono","Cascadia Code",Consolas,"SF Mono",Menlo,ui-monospace,monospace;
+
+  --fontSizeBase200:12px; --lineHeightBase200:16px;
+  --fontSizeBase300:14px; --lineHeightBase300:20px;
+  --fontSizeBase400:16px; --lineHeightBase400:24px;
+  --fontSizeBase500:20px; --lineHeightBase500:28px;
+  --fontSizeBase600:24px; --lineHeightBase600:32px;
+  --fontSizeHero700:28px; --lineHeightHero700:36px;
+  --fontSizeHero800:32px; --lineHeightHero800:40px;
+  --fontSizeHero900:40px; --lineHeightHero900:48px;
+  --fontWeightRegular:400; --fontWeightSemibold:600; --fontWeightBold:700;
+
+  --spacingHorizontalXS:4px;  --spacingHorizontalS:8px;  --spacingHorizontalM:12px;
+  --spacingHorizontalL:16px;  --spacingHorizontalXL:20px; --spacingHorizontalXXL:24px;
+  --spacingHorizontalXXXL:32px;
+  --spacingVerticalSection:64px;       /* custom: rhythm between sections */
+  --borderRadiusMedium:4px; --borderRadiusLarge:8px; --borderRadiusCircular:999px;
+  --strokeWidthThin:1px; --strokeWidthThick:2px;
+  --durationNormal:200ms; --curveEasyEase:cubic-bezier(.33,0,.67,1);
+  --measure:66ch;
+  --nav-h:56px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --colorNeutralBackground3:#1B1B1B;
+    --colorNeutralBackground1:#292929;
+    --colorNeutralBackground2:#1F1F1F;
+    --colorNeutralForeground1:#FFFFFF;
+    --colorNeutralForeground2:#D6D6D6;
+    --colorNeutralForeground3:#ADADAD;
+    --colorNeutralStroke2:#3D3D3D;
+    --colorNeutralStrokeAccessible:#ADADAD;
+    --colorBrandForeground1:#479EF5;
+    --colorBrandBackground:#115EA3;
+    --colorBrandBackgroundHover:#0F6CBD;
+    --colorBrandBackground2:#0A2540;
+    --colorNeutralForegroundOnBrand:#FFFFFF;
+    --colorPaletteGreenForeground1:#54B054;
+    --colorPaletteGreenBackground1:#0B2A0B;
+    --colorPaletteMarigoldForeground1:#E6A23C;
+    --colorPaletteMarigoldBackground1:#33240A;
+    --colorPaletteRedForeground1:#F1707B;
+    --colorPaletteRedBackground1:#3A1216;
+    --colorRedline:#FF6B4A;
+    --colorRedlineOnFill:#1B1B1B;
+    --colorStrokeFocus1:#000000;
+    --colorStrokeFocus2:#FFFFFF;
+    --shadow4:0 0 2px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.32);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --colorNeutralBackground3:#1B1B1B;
+  --colorNeutralBackground1:#292929;
+  --colorNeutralBackground2:#1F1F1F;
+  --colorNeutralForeground1:#FFFFFF;
+  --colorNeutralForeground2:#D6D6D6;
+  --colorNeutralForeground3:#ADADAD;
+  --colorNeutralStroke2:#3D3D3D;
+  --colorNeutralStrokeAccessible:#ADADAD;
+  --colorBrandForeground1:#479EF5;
+  --colorBrandBackground:#115EA3;
+  --colorBrandBackgroundHover:#0F6CBD;
+  --colorBrandBackground2:#0A2540;
+  --colorNeutralForegroundOnBrand:#FFFFFF;
+  --colorPaletteGreenForeground1:#54B054;
+  --colorPaletteGreenBackground1:#0B2A0B;
+  --colorPaletteMarigoldForeground1:#E6A23C;
+  --colorPaletteMarigoldBackground1:#33240A;
+  --colorPaletteRedForeground1:#F1707B;
+  --colorPaletteRedBackground1:#3A1216;
+  --colorRedline:#FF6B4A;
+  --colorRedlineOnFill:#1B1B1B;
+  --colorStrokeFocus1:#000000;
+  --colorStrokeFocus2:#FFFFFF;
+  --shadow4:0 0 2px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.32);
+}
+/* Density: compact remaps spacing + line-height aliases only. */
+:root[data-density="compact"]{
+  --spacingHorizontalL:12px; --spacingHorizontalXL:16px; --spacingHorizontalXXL:16px;
+  --spacingHorizontalXXXL:24px; --spacingVerticalSection:40px;
+  --lineHeightBase400:22px; --lineHeightBase300:18px;
+}
+
+/* ============================ Base ============================ */
+*,*::before,*::after{box-sizing:border-box}
+:root.theme-switching *,:root.theme-switching *::before,:root.theme-switching *::after{transition:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;overflow-x:clip;background:var(--colorNeutralBackground3);color:var(--colorNeutralForeground1);
+  font-family:var(--fontFamilyBase);font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{margin:0;font-weight:var(--fontWeightSemibold);letter-spacing:-0.01em;text-wrap:balance}
+h1{font-size:var(--fontSizeHero900);line-height:var(--lineHeightHero900);letter-spacing:-0.02em}
+h2{font-size:var(--fontSizeHero700);line-height:var(--lineHeightHero700)}
+h3{font-size:var(--fontSizeBase600);line-height:var(--lineHeightBase600)}
+h4{font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400)}
+p{margin:0}
+p + p{margin-top:var(--spacingHorizontalM)}
+a{color:var(--colorBrandForeground1);text-underline-offset:.15em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+ul,ol{margin:0;padding-left:1.25em}
+li + li{margin-top:var(--spacingHorizontalXS)}
+code,kbd,.mono{font-family:var(--fontFamilyMonospace);font-size:.92em}
+strong{font-weight:var(--fontWeightSemibold)}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:var(--strokeWidthThick) solid var(--colorStrokeFocus2);outline-offset:2px;box-shadow:0 0 0 1px var(--colorStrokeFocus1)}
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:var(--spacingHorizontalL);top:-100px;z-index:100;background:var(--colorNeutralBackground1);color:var(--colorNeutralForeground1);padding:var(--spacingHorizontalS) var(--spacingHorizontalM);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium)}
+.skip:focus{top:var(--spacingHorizontalS)}
+.wrap{width:min(1120px, 100% - 2*var(--spacingHorizontalXXL));margin-inline:auto}
+.measure{max-width:var(--measure)}
+.eyebrow{font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);letter-spacing:.08em;text-transform:uppercase;color:var(--colorNeutralForeground3);font-weight:var(--fontWeightSemibold)}
+.muted{color:var(--colorNeutralForeground3)}
+.small{font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+section{padding-block:var(--spacingVerticalSection)}
+section + section{border-top:1px solid var(--colorNeutralStroke2)}
+.section-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--spacingHorizontalM) var(--spacingHorizontalXXL);margin-bottom:var(--spacingHorizontalXXXL)}
+
+/* ============================ Controls ============================ */
+.btn{
+  display:inline-flex;align-items:center;gap:var(--spacingHorizontalS);min-height:32px;padding:0 var(--spacingHorizontalM);
+  border-radius:var(--borderRadiusMedium);border:1px solid var(--colorNeutralStrokeAccessible);
+  background:var(--colorNeutralBackground1);color:var(--colorNeutralForeground1);font:inherit;font-size:var(--fontSizeBase300);
+  font-weight:var(--fontWeightSemibold);line-height:1;text-decoration:none;cursor:pointer;
+  transition:background var(--durationNormal) var(--curveEasyEase),border-color var(--durationNormal) var(--curveEasyEase)
+}
+.btn:hover{background:var(--colorNeutralBackground2)}
+.btn-primary{background:var(--colorBrandBackground);border-color:transparent;color:var(--colorNeutralForegroundOnBrand)}
+.btn-primary:hover{background:var(--colorBrandBackgroundHover)}
+.btn[aria-pressed="true"]{background:var(--colorBrandBackground2);border-color:var(--colorBrandForeground1);color:var(--colorBrandForeground1)}
+.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.btn-sm{min-height:28px;padding:0 var(--spacingHorizontalS);font-size:var(--fontSizeBase200)}
+.seg{display:inline-flex;border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);overflow:hidden;background:var(--colorNeutralBackground1)}
+.seg legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.seg label{position:relative;display:inline-flex;align-items:center;min-height:30px;padding:0 var(--spacingHorizontalM);font-size:var(--fontSizeBase300);font-weight:var(--fontWeightSemibold);cursor:pointer;color:var(--colorNeutralForeground2)}
+.seg label + label{border-left:1px solid var(--colorNeutralStroke2)}
+.seg input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}
+.seg input:checked + span{color:var(--colorBrandForeground1)}
+.seg label:has(input:checked){background:var(--colorBrandBackground2)}
+.seg label:has(input:focus-visible){outline:var(--strokeWidthThick) solid var(--colorStrokeFocus2);outline-offset:-3px;box-shadow:inset 0 0 0 3px var(--colorStrokeFocus1)}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.switch{display:inline-flex;align-items:center;gap:var(--spacingHorizontalS);background:none;border:0;padding:0;font:inherit;font-size:var(--fontSizeBase300);color:var(--colorNeutralForeground1);cursor:pointer}
+.switch .track{width:40px;height:20px;border-radius:var(--borderRadiusCircular);border:1px solid var(--colorNeutralStrokeAccessible);background:var(--colorNeutralBackground1);position:relative;transition:background var(--durationNormal) var(--curveEasyEase)}
+.switch .track::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--colorNeutralForeground3);transition:transform var(--durationNormal) var(--curveEasyEase),background var(--durationNormal)}
+.switch[aria-checked="true"] .track{background:var(--colorBrandBackground);border-color:transparent}
+.switch[aria-checked="true"] .track::after{transform:translateX(20px);background:var(--colorNeutralForegroundOnBrand)}
+
+/* ============================ Nav ============================ */
+.nav{position:sticky;top:0;z-index:50;background:var(--colorNeutralBackground1);border-bottom:1px solid var(--colorNeutralStroke2)}
+.nav .wrap{min-height:var(--nav-h);display:flex;align-items:center;flex-wrap:wrap;gap:var(--spacingHorizontalS) var(--spacingHorizontalXL);padding-block:var(--spacingHorizontalS)}
+.nav-brand{font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground1);text-decoration:none;margin-right:auto}
+.nav ul{display:flex;gap:var(--spacingHorizontalL);list-style:none;padding:0;margin:0}
+.nav ul li + li{margin:0}
+.nav ul a{color:var(--colorNeutralForeground2);text-decoration:none;font-size:var(--fontSizeBase300);font-weight:var(--fontWeightSemibold);padding:6px 2px}
+.nav ul a:hover{color:var(--colorBrandForeground1);text-decoration:underline}
+.nav-controls{display:flex;align-items:center;gap:var(--spacingHorizontalM)}
+@media (max-width:640px){.nav{position:static}html{scroll-padding-top:12px}.nav ul{gap:var(--spacingHorizontalM)}}
+
+/* ============================ Masthead ============================ */
+.masthead{padding-block:calc(var(--spacingVerticalSection) - 8px) var(--spacingVerticalSection)}
+.masthead-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalXXXL)}
+@media (min-width: 960px){.masthead-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start}}
+.role{font-size:var(--fontSizeBase500);line-height:var(--lineHeightBase500);color:var(--colorNeutralForeground2);margin-top:var(--spacingHorizontalS)}
+.lede{font-size:var(--fontSizeBase500);line-height:var(--lineHeightBase500);margin-top:var(--spacingHorizontalXXL);max-width:var(--measure)}
+.meta-line{margin-top:var(--spacingHorizontalL);color:var(--colorNeutralForeground3);font-size:var(--fontSizeBase300)}
+.cta{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalM);margin-top:var(--spacingHorizontalXXL)}
+.evidence{position:relative;padding:var(--spacingHorizontalXXL);background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusLarge)}
+.evidence-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--spacingHorizontalL);margin:0}
+.evidence-list > div{display:flex;flex-direction:column;gap:var(--spacingHorizontalXS);min-width:0}
+.evidence dt{font-size:var(--fontSizeHero700);line-height:var(--lineHeightHero700);font-weight:var(--fontWeightSemibold);letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.evidence dd{margin:0;font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300);color:var(--colorNeutralForeground2)}
+.evidence dd a{color:inherit}
+.evidence-caption{margin:var(--spacingHorizontalL) 0 0;padding-top:var(--spacingHorizontalM);border-top:1px solid var(--colorNeutralStroke2);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground3)}
+.facts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:var(--spacingHorizontalS) var(--spacingHorizontalXL);margin:var(--spacingHorizontalXXXL) 0 0;font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+.facts dt{color:var(--colorNeutralForeground3);font-weight:var(--fontWeightSemibold)}
+.facts dd{margin:0}
+@media (max-width:480px){.facts{grid-template-columns:1fr}.facts dd{margin-bottom:var(--spacingHorizontalS)}}
+
+/* ============================ Case studies ============================ */
+.case{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalXXL) var(--spacingHorizontalXXXL);padding-block:var(--spacingHorizontalXXXL)}
+.case + .case{border-top:1px solid var(--colorNeutralStroke2)}
+@media (min-width: 960px){.case{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}.case > .mock{position:sticky;top:calc(var(--nav-h) + 24px);align-self:start}}
+.tags{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalS);margin:0 0 var(--spacingHorizontalM);padding:0;list-style:none}
+.tags li{margin:0;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);letter-spacing:.04em;text-transform:uppercase;font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground2);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);padding:3px 8px}
+.tags li.tag-ai{color:var(--colorBrandForeground1);border-color:var(--colorBrandForeground1)}
+.case h3{font-size:var(--fontSizeHero700);line-height:var(--lineHeightHero700);letter-spacing:-0.015em}
+.case .who{margin-top:var(--spacingHorizontalM);color:var(--colorNeutralForeground2)}
+.case .who b{font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground1)}
+.steps{margin:var(--spacingHorizontalXXL) 0 0;display:grid;gap:var(--spacingHorizontalL)}
+.steps > div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:var(--spacingHorizontalL)}
+@media (max-width:600px){.steps > div{grid-template-columns:1fr;gap:var(--spacingHorizontalXS)}}
+.steps dt{font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);letter-spacing:.08em;text-transform:uppercase;font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground3);padding-top:3px}
+.steps dd{margin:0}
+.steps dd ul{padding-left:1.1em}
+.case-details{margin-top:var(--spacingHorizontalL)}
+.case-details > summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:var(--spacingHorizontalS);min-height:32px;padding:0 var(--spacingHorizontalM);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);background:var(--colorNeutralBackground1);font-size:var(--fontSizeBase300);font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground1)}
+.case-details > summary::-webkit-details-marker{display:none}
+.case-details > summary::before{content:"+";font-family:var(--fontFamilyMonospace);color:var(--colorBrandForeground1)}
+.case-details[open] > summary::before{content:"–"}
+.case-details[open] > summary{margin-bottom:var(--spacingHorizontalS)}
+.case-details .steps{margin-top:var(--spacingHorizontalM)}
+.measured{margin-top:var(--spacingHorizontalXXL);padding:var(--spacingHorizontalL) var(--spacingHorizontalXL);background:var(--colorNeutralBackground1);border-left:3px solid var(--colorBrandForeground1);border-radius:0 var(--borderRadiusMedium) var(--borderRadiusMedium) 0}
+.measured h4{font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);letter-spacing:.08em;text-transform:uppercase;color:var(--colorNeutralForeground3)}
+.measured ul{margin-top:var(--spacingHorizontalS);padding-left:1.1em}
+.measured .num{font-weight:var(--fontWeightSemibold)}
+.mock{position:relative;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusLarge);overflow:hidden}
+.mock figcaption{padding:var(--spacingHorizontalM) var(--spacingHorizontalL);border-top:1px solid var(--colorNeutralStroke2);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground3);display:flex;justify-content:space-between;gap:var(--spacingHorizontalM);align-items:center;flex-wrap:wrap}
+.mock-body{position:relative;padding:var(--spacingHorizontalL)}
+/* wireframe primitives */
+.wf{font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground2)}
+.wf-bar{height:8px;border-radius:var(--borderRadiusCircular);background:var(--colorNeutralStroke2)}
+.wf-bar.w60{width:60%}.wf-bar.w80{width:80%}.wf-bar.w40{width:40%}.wf-bar.w90{width:90%}.wf-bar.w30{width:30%}
+.wf-panel{border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusMedium);background:var(--colorNeutralBackground2);padding:var(--spacingHorizontalM)}
+.wf-label{font-size:11px;line-height:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground3);margin-bottom:var(--spacingHorizontalS)}
+.doc-mock{display:grid;grid-template-columns:96px minmax(0,1fr) 150px;gap:var(--spacingHorizontalM);min-height:280px}
+@media (max-width:600px){.doc-mock{grid-template-columns:minmax(0,1fr)}.doc-mock .wf-side{display:none}}
+.doc-mock .wf-side{display:grid;gap:var(--spacingHorizontalS);align-content:start}
+.doc-mock .wf-main{display:grid;gap:var(--spacingHorizontalS);align-content:start}
+.code-tabs{display:flex;gap:2px;border-bottom:1px solid var(--colorNeutralStroke2);margin-top:var(--spacingHorizontalS)}
+.code-tabs span{padding:4px 8px;font-size:11px;border-bottom:2px solid transparent;color:var(--colorNeutralForeground3)}
+.code-tabs span.on{border-bottom-color:var(--colorBrandForeground1);color:var(--colorBrandForeground1);font-weight:var(--fontWeightSemibold)}
+.code-block{font-family:var(--fontFamilyMonospace);font-size:11px;line-height:16px;background:var(--colorNeutralBackground3);border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusMedium);padding:var(--spacingHorizontalS) var(--spacingHorizontalM);color:var(--colorNeutralForeground2);white-space:pre;overflow:hidden}
+.chat-mini{display:grid;gap:var(--spacingHorizontalS);align-content:start}
+.bubble{border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusLarge);padding:8px 10px;font-size:11px;line-height:15px;background:var(--colorNeutralBackground1)}
+.bubble.user{background:var(--colorBrandBackground2);border-color:transparent;justify-self:end}
+.cite{display:inline-block;min-width:16px;height:16px;padding:0 4px;border-radius:var(--borderRadiusMedium);background:var(--colorBrandBackground2);color:var(--colorBrandForeground1);font-family:var(--fontFamilyMonospace);font-size:10px;line-height:16px;text-align:center;vertical-align:middle}
+.ai-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;line-height:14px;letter-spacing:.04em;text-transform:uppercase;font-weight:var(--fontWeightSemibold);color:var(--colorNeutralForeground3)}
+/* dashboard mock */
+.dash{display:grid;gap:var(--spacingHorizontalM)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:var(--spacingHorizontalS)}
+.kpi{border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusMedium);padding:8px 10px;background:var(--colorNeutralBackground2)}
+.kpi b{display:block;font-size:var(--fontSizeBase500);line-height:var(--lineHeightBase500);font-weight:var(--fontWeightSemibold);letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11px;color:var(--colorNeutralForeground3)}
+.lifecycle{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:11px}
+.lifecycle span{border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusCircular);padding:2px 8px;color:var(--colorNeutralForeground2)}
+.lifecycle span.on{background:var(--colorBrandBackground);border-color:transparent;color:var(--colorNeutralForegroundOnBrand)}
+.lifecycle i{color:var(--colorNeutralForeground3);font-style:normal}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.grid-mini{width:100%;border-collapse:collapse;font-size:11px;line-height:14px}
+.grid-mini th,.grid-mini td{border-bottom:1px solid var(--colorNeutralStroke2);padding:5px 6px;text-align:left;white-space:nowrap}
+.grid-mini th{color:var(--colorNeutralForeground3);font-weight:var(--fontWeightSemibold);letter-spacing:.04em;text-transform:uppercase;font-size:10px}
+.grid-mini td.num{text-align:right}
+.chart-wrap{display:grid;gap:var(--spacingHorizontalS)}
+.chart-wrap svg{width:100%;height:auto;display:block}
+.chart-wrap details{font-size:var(--fontSizeBase300)}
+.chart-wrap summary{cursor:pointer;color:var(--colorBrandForeground1);font-weight:var(--fontWeightSemibold);font-size:var(--fontSizeBase200);padding:5px 0;min-height:24px}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);margin-top:var(--spacingHorizontalS)}
+.data-table caption{text-align:left;color:var(--colorNeutralForeground3);padding-bottom:4px}
+.data-table th,.data-table td{border-bottom:1px solid var(--colorNeutralStroke2);padding:4px 6px;text-align:left}
+.data-table td.num,.data-table th.num{text-align:right;font-variant-numeric:tabular-nums}
+/* flow mock */
+.flow{display:grid;gap:var(--spacingHorizontalS)}
+.flow ol{list-style:none;padding:0;margin:0;display:grid;gap:6px;counter-reset:step}
+.flow li{margin:0;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start;counter-increment:step;font-size:12px;line-height:16px}
+.flow li::before{content:counter(step);width:22px;height:22px;border-radius:50%;background:var(--colorBrandBackground);color:var(--colorNeutralForegroundOnBrand);font-size:11px;font-weight:var(--fontWeightSemibold);display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.flow li b{font-weight:var(--fontWeightSemibold);display:block}
+.flow li .note{display:block;grid-column:2;color:var(--colorNeutralForeground3);font-size:11px;line-height:14px}
+.callout{border:1px dashed var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);padding:6px 8px;font-size:11px;line-height:14px;background:var(--colorPaletteGreenBackground1);color:var(--colorPaletteGreenForeground1)}
+.also{display:grid;gap:0;margin-top:var(--spacingHorizontalXXXL);border-top:1px solid var(--colorNeutralStroke2)}
+.also article{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalS) var(--spacingHorizontalXXL);padding-block:var(--spacingHorizontalXL);border-bottom:1px solid var(--colorNeutralStroke2)}
+@media (min-width: 800px){.also article{grid-template-columns:260px minmax(0,1fr)}}
+.also h4{font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400)}
+.also .when{font-size:var(--fontSizeBase300);color:var(--colorNeutralForeground3);margin-top:2px}
+.also p{max-width:var(--measure)}
+
+/* ============================ Copilot panel ============================ */
+.ai-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalXXXL)}
+@media (min-width: 960px){.ai-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}}
+.copilot{background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusLarge);display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;box-shadow:var(--shadow4)}
+.copilot-head{display:flex;align-items:center;justify-content:space-between;gap:var(--spacingHorizontalM);padding:var(--spacingHorizontalM) var(--spacingHorizontalL);border-bottom:1px solid var(--colorNeutralStroke2)}
+.copilot-head h3{font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400)}
+.copilot-log{padding:var(--spacingHorizontalL);display:grid;gap:var(--spacingHorizontalM);align-content:start;min-height:260px;max-height:460px;overflow:auto}
+.msg{display:grid;gap:var(--spacingHorizontalS);max-width:100%}
+.msg-user{justify-self:end;max-width:85%}
+.msg-user .body{background:var(--colorBrandBackground2);border-radius:var(--borderRadiusLarge);padding:var(--spacingHorizontalS) var(--spacingHorizontalM)}
+.msg-ai .body{border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusLarge);padding:var(--spacingHorizontalM) var(--spacingHorizontalL);background:var(--colorNeutralBackground2)}
+.msg-ai .body p{white-space:pre-wrap}
+.msg-ai .body p:empty::before{content:"";display:inline-block;width:8ch;height:1em;border-radius:var(--borderRadiusMedium);background:var(--colorNeutralStroke2)}
+.grounding{display:inline-flex;align-items:center;gap:6px;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);font-weight:var(--fontWeightSemibold);padding:2px 8px;border-radius:var(--borderRadiusCircular);border:1px solid currentColor;width:max-content;max-width:100%}
+.grounding.ok{color:var(--colorPaletteGreenForeground1);background:var(--colorPaletteGreenBackground1)}
+.grounding.partial{color:var(--colorPaletteMarigoldForeground1);background:var(--colorPaletteMarigoldBackground1)}
+.grounding.none{color:var(--colorPaletteRedForeground1);background:var(--colorPaletteRedBackground1)}
+.refs{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200)}
+.refs li{margin:0}
+.refs a{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);padding:2px 6px;text-decoration:none;color:var(--colorNeutralForeground1);background:var(--colorNeutralBackground1)}
+.refs a:hover{border-color:var(--colorBrandForeground1);color:var(--colorBrandForeground1)}
+.refs .n{font-family:var(--fontFamilyMonospace);color:var(--colorBrandForeground1)}
+.msg-tools{display:flex;flex-wrap:wrap;align-items:center;gap:var(--spacingHorizontalS)}
+.msg-tools .ai-tag{margin-right:auto}
+.followups{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalS)}
+.copilot-form{display:grid;gap:var(--spacingHorizontalS);padding:var(--spacingHorizontalM) var(--spacingHorizontalL);border-top:1px solid var(--colorNeutralStroke2);background:var(--colorNeutralBackground1)}
+.copilot-form .row{display:flex;gap:var(--spacingHorizontalS)}
+.copilot-form label{font-size:var(--fontSizeBase300);font-weight:var(--fontWeightSemibold)}
+.copilot-form input{flex:1;min-width:0;min-height:36px;padding:0 var(--spacingHorizontalM);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusMedium);background:var(--colorNeutralBackground1);color:var(--colorNeutralForeground1);font:inherit;font-size:var(--fontSizeBase300)}
+.copilot-form input::placeholder{color:var(--colorNeutralForeground3);opacity:1}
+.disclaimer{font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground3)}
+.suggest{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalS)}
+.patterns{display:grid;gap:var(--spacingHorizontalL);margin-top:var(--spacingHorizontalXXL)}
+.patterns > div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:var(--spacingHorizontalL);font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+@media (max-width:600px){.patterns > div{grid-template-columns:1fr}}
+.patterns dt{font-weight:var(--fontWeightSemibold)}
+.patterns dd{margin:0;color:var(--colorNeutralForeground2)}
+
+/* ============================ Practice ============================ */
+.practice-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalXXXL)}
+@media (min-width: 900px){.practice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStrokeAccessible);border-radius:var(--borderRadiusLarge);padding:var(--spacingHorizontalXXL)}
+.card h3{font-size:var(--fontSizeBase500);line-height:var(--lineHeightBase500);margin-bottom:var(--spacingHorizontalM)}
+.checks{list-style:none;padding:0;margin:var(--spacingHorizontalM) 0 0;display:grid;gap:var(--spacingHorizontalS);font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+.checks li{margin:0;display:grid;grid-template-columns:20px minmax(0,1fr);gap:var(--spacingHorizontalS)}
+.checks .ok{color:var(--colorPaletteGreenForeground1);font-weight:var(--fontWeightBold)}
+.checks .todo{color:var(--colorPaletteMarigoldForeground1);font-weight:var(--fontWeightBold)}
+.matrix{width:100%;border-collapse:collapse;font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300);margin-top:var(--spacingHorizontalM)}
+.matrix th,.matrix td{border-bottom:1px solid var(--colorNeutralStroke2);padding:8px 6px;text-align:left;vertical-align:top}
+.matrix th{color:var(--colorNeutralForeground3);font-size:var(--fontSizeBase200);letter-spacing:.06em;text-transform:uppercase}
+.matrix td:first-child{font-weight:var(--fontWeightSemibold);white-space:nowrap}
+.pill{display:inline-block;white-space:nowrap;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);font-weight:var(--fontWeightSemibold);padding:1px 8px;border-radius:var(--borderRadiusCircular);border:1px solid currentColor}
+.pill.have{color:var(--colorPaletteGreenForeground1);background:var(--colorPaletteGreenBackground1)}
+.pill.adj{color:var(--colorBrandForeground1);background:var(--colorBrandBackground2)}
+.pill.ramp{color:var(--colorPaletteMarigoldForeground1);background:var(--colorPaletteMarigoldBackground1)}
+.controls-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--spacingHorizontalL);margin-top:var(--spacingHorizontalM)}
+.spec-text{margin-top:var(--spacingHorizontalM);font-size:var(--fontSizeBase300)}
+.spec-text summary{cursor:pointer;color:var(--colorBrandForeground1);font-weight:var(--fontWeightSemibold);padding:4px 0;min-height:24px}
+.spec-text table{width:100%;border-collapse:collapse;margin-top:var(--spacingHorizontalS);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200)}
+.spec-text th,.spec-text td{border-bottom:1px solid var(--colorNeutralStroke2);padding:4px 6px;text-align:left;vertical-align:top}
+.spec-text td.mono{white-space:nowrap}
+.exp{list-style:none;padding:0;margin:var(--spacingHorizontalM) 0 0;display:grid}
+.exp li{margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--spacingHorizontalL);padding:8px 0;border-bottom:1px solid var(--colorNeutralStroke2);font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+.exp li b{font-weight:var(--fontWeightSemibold)}
+.exp li span{color:var(--colorNeutralForeground3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.exp li small{display:block;color:var(--colorNeutralForeground2)}
+
+/* ============================ Contact / footer ============================ */
+.contact .wrap{display:grid;gap:var(--spacingHorizontalXXL)}
+.contact-row{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalM)}
+footer{padding-block:var(--spacingHorizontalXXL);border-top:1px solid var(--colorNeutralStroke2);color:var(--colorNeutralForeground3);font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--spacingHorizontalM)}
+
+/* ============================ Specs (redline) layer ============================ */
+#spec-layer{position:absolute;left:0;top:0;width:100%;height:0;overflow:visible;pointer-events:none;z-index:40}
+.spec-box{position:absolute;border:1px solid var(--colorRedline);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--colorRedline) 25%,transparent)}
+.spec-pill{position:absolute;background:var(--colorRedline);color:var(--colorRedlineOnFill);font-family:var(--fontFamilyMonospace);font-size:11px;line-height:16px;padding:1px 6px;border-radius:3px;white-space:nowrap;max-width:min(60vw,420px);overflow:hidden;text-overflow:ellipsis}
+.spec-gap{position:absolute;border-left:1px solid var(--colorRedline);border-right:1px solid var(--colorRedline);background:repeating-linear-gradient(90deg,transparent 0 3px,color-mix(in srgb,var(--colorRedline) 35%,transparent) 3px 4px)}
+.spec-gap-label{position:absolute;transform:translate(-50%,-50%);background:var(--colorRedline);color:var(--colorRedlineOnFill);font-family:var(--fontFamilyMonospace);font-size:11px;line-height:16px;padding:1px 6px;border-radius:3px;white-space:nowrap}
+@media (prefers-reduced-motion: no-preference){.spec-box,.spec-pill,.spec-gap,.spec-gap-label{animation:spec-in var(--durationNormal) var(--curveEasyEase)}}
+@keyframes spec-in{from{opacity:0}to{opacity:1}}
+
+/* ============================ Print ============================ */
+@media print{
+  .nav,.skip,.copilot-form,.suggest,.msg-tools,.controls-row,#spec-layer{display:none!important}
+  body{background:#fff;color:#000}
+  section{padding-block:18pt;break-inside:auto}
+  .case,.card{break-inside:avoid}
+  a{color:#000}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;color:#444}
+}
+@media (forced-colors: active){
+  .btn,.seg,.copilot,.card,.mock,.evidence{border:1px solid CanvasText}
+  .grounding,.pill,.tags li{border:1px solid CanvasText}
+  .spec-box{border-color:Highlight}.spec-pill,.spec-gap-label{background:Highlight;color:HighlightText}
+}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="spec-layer" aria-hidden="true"></div>
+<div id="a11y-status" class="visually-hidden" role="status" aria-live="polite"></div>
+
+<header class="nav" role="banner">
+  <div class="wrap">
+    <a class="nav-brand" href="#top">Alex Gao</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#ai-patterns">AI patterns</a></li>
+        <li><a href="#practice">Practice</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-controls">
+      <button class="btn btn-sm" type="button" id="specs-toggle" aria-pressed="false" aria-describedby="specs-help">Show specs</button>
+      <span id="specs-help" class="visually-hidden">Overlays measured spacing and token names on this page's own components. Visual only; a text version is in the Practice section.</span>
+      <fieldset class="seg" id="theme-seg">
+        <legend>Theme</legend>
+        <label><input type="radio" name="theme" value="system" checked><span>System</span></label>
+        <label><input type="radio" name="theme" value="light"><span>Light</span></label>
+        <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+      </fieldset>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<!-- ===================================================== MASTHEAD -->
+<section class="masthead" id="top" aria-labelledby="name">
+  <div class="wrap masthead-grid">
+    <div>
+      <p class="eyebrow">Senior UX Engineer · Front-End Engineer</p>
+      <h1 id="name">Alex (Zhiheng Li) Gao</h1>
+      <p class="role">I design the interaction and ship the front end — in the same pull request.</p>
+      <p class="lede">Fifteen years of enterprise front-end work. Most recently: the design system and accessibility strategy for an AI-powered documentation platform at Apple, and the admin platform and B2B dashboards for Equinix — designed in Figma, built in React 18 + TypeScript, gated by axe in CI.</p>
+      <p class="meta-line">Santa Clara, CA · open to 100% remote (US), PST hours · Green Card, no sponsorship needed</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="mailto:gx7181@gmail.com">Email Alex</a>
+        <a class="btn" href="https://www.linkedin.com/in/zhiheng-li-21264217b" rel="me noopener">LinkedIn</a>
+        <a class="btn" href="Alex-Gao-Resume.pdf" id="resume-link">Résumé (PDF)</a>
+      </div>
+      <dl class="facts">
+        <dt>Builds in</dt><dd>React 18 + TypeScript, Next.js, Tailwind, Storybook; Angular and Vue at working level</dd>
+        <dt>Design systems</dt><dd>Figma Variables → Style Dictionary → React; tokens in Fluent 2 / Material vocabulary; Storybook docs with a11y annotations</dd>
+        <dt>Standard</dt><dd>WCAG 2.1 AA in production; axe-core + Playwright gates in CI; screen-reader validation with NVDA, JAWS, VoiceOver</dd>
+        <dt>AI interfaces</dt><dd>Streaming responses, grounding and refusal states, feedback loops, and clear labeling of AI-generated content</dd>
+      </dl>
+    </div>
+    <div class="evidence" data-spec="padding:--spacingHorizontalXXL|radius:--borderRadiusLarge" data-spec-name="Evidence panel">
+      <dl class="evidence-list" aria-label="Evidence from shipped work" data-spec="gap:--spacingHorizontalL">
+      <div><dt class="num">60+</dt><dd>accessible React components documented in Storybook — <a href="#work-apple">Apple</a></dd></div>
+      <div><dt class="num">≈40%</dt><dd>shorter release cycle after a token-driven design system replaced ad-hoc UI — <a href="#work-equinix">Equinix</a></dd></div>
+      <div><dt class="num">≈30%</dt><dd>fewer production defects with accessibility and visual-regression gates in CI — <a href="#work-equinix">Equinix</a></dd></div>
+      <div><dt class="num">&lt;30 → 80%</dt><dd>unit-test coverage after a strict-TypeScript and Jest baseline — <a href="#work-equinix">Equinix</a></dd></div>
+      <div><dt class="num">3</dt><dd>legacy front ends migrated to React without downtime — <a href="#work-equinix">Equinix</a>, <a href="#also-comcast">Comcast</a>, <a href="#also-usbank">US Bank</a></dd></div>
+      <div><dt>AA</dt><dd>WCAG 2.1 conformance owned on audit-reviewed lending flows — <a href="#work-wells">Wells Fargo</a></dd></div>
+      </dl>
+      <p class="evidence-caption">Every figure on this page comes from the résumé you already have. Where a program captured no number, the case study says so.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== WORK -->
+<section id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 id="work-h">Shipped products, with the outcome first</h2>
+      </div>
+      <p class="muted small measure">Enterprise work under NDA: the mocks are schematic recreations of the shipped layouts, not screenshots. Each case is tagged with the surface type it maps to.</p>
+    </div>
+
+    <!-- ---------------- Apple -->
+    <article class="case" id="work-apple" aria-labelledby="apple-h">
+      <div>
+        <ul class="tags" aria-label="Surface types">
+          <li class="tag-ai">AI-powered interface</li><li>Design system</li><li>Accessibility</li>
+        </ul>
+        <h3 id="apple-h">60+ accessible components, one token source of truth, and a CI gate that blocks inaccessible merges — for a documentation platform serving hundreds of engineering teams.</h3>
+        <p class="who"><b>Apple · Sunnyvale, CA · Dec 2024 – July 2026.</b> Front-End Architect / Lead — owned the design system and the accessibility strategy; designed the interaction patterns and built them in React 18 + TypeScript, Next.js, Docusaurus, Tailwind CSS and Storybook.</p>
+        <dl class="steps">
+          <div><dt>Context</dt><dd>Unify Apple's API reference and Markdown developer guides on one Docusaurus platform for internal engineering and external developer audiences — with conversational, AI-assisted search on top.</dd></div>
+          <div><dt>How I learned</dt><dd>Prototyped concepts in Figma and AI design tools, then drove them through design reviews with Product, UX and Content partners — critique became shipped interaction patterns. Worked with technical writers, API authors and ML engineers to define authoring workflows, evaluate model quality and gate AI features behind canary rollouts.</dd></div>
+          <div><dt>Designed</dt><dd><ul>
+            <li>Data-driven API explorers, live code playgrounds and contextual navigation for the reference pages.</li>
+            <li>The conversational search experience: partial responses, progressive rendering, retry and fallback states, skeleton loading and latency-aware interaction so the UI stays responsive under model latency.</li>
+            <li>A WCAG 2.1 AA, dark-mode-aware theme matching Apple's developer visual language, with keyboard-first navigation and reader mode.</li>
+          </ul></dd></div>
+          <div><dt>Built</dt><dd><ul>
+            <li>Design tokens for color, type, spacing, elevation and motion defined in Figma Variables, exported through Style Dictionary and consumed in React — one token change propagates to every surface.</li>
+            <li>60+ reusable React + TypeScript components in Storybook with usage guidelines, do/don't examples, props tables and live accessibility annotations.</li>
+            <li>Streaming AI UI components over Server-Sent Events; RAG semantic search over API reference content with vector embeddings.</li>
+            <li>Docusaurus plugins generating API reference pages from OpenAPI specs and Swift/Objective-C annotations; a reusable MDX library (callouts, code tabs, version pickers, playgrounds) adopted across multiple documentation properties.</li>
+            <li>axe-core + Playwright enforcement in CI, blocking merges on contrast, label, role and focus-order violations.</li>
+          </ul></dd></div>
+        </dl>
+        <div class="measured">
+          <h4>Measured</h4>
+          <ul>
+            <li><span class="num">60+</span> components documented and adopted as the shared source of truth for designers and engineers.</li>
+            <li>Thousands of hand-maintained reference pages replaced by generated ones.</li>
+            <li>Full-portal build time cut from hours to <span class="num">under ten minutes</span> (incremental builds, on-demand pages, parallel MDX compilation).</li>
+            <li>The design-QA rework loop removed from the release cycle by building from Dev Mode variables instead of screenshots.</li>
+            <li>LCP and TTFB held within budget on content-heavy pages.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="mock" data-spec-scope="always">
+        <div class="mock-body wf">
+          <div class="doc-mock">
+            <div class="wf-side" aria-hidden="true">
+              <div class="wf-label">Reference</div>
+              <div class="wf-bar w80"></div><div class="wf-bar w60"></div><div class="wf-bar w90"></div><div class="wf-bar w40"></div><div class="wf-bar w60"></div>
+            </div>
+            <div class="wf-main" data-spec="gap:--spacingHorizontalS|padding:--spacingHorizontalL">
+              <div class="wf-label">API explorer · <span class="mono">URLSession.dataTask(with:)</span></div>
+              <div class="wf-bar w90"></div><div class="wf-bar w60"></div>
+              <div class="code-tabs" aria-hidden="true"><span class="on">Swift</span><span>Objective-C</span><span>Try it</span></div>
+              <pre class="code-block" aria-hidden="true">let task = session.dataTask(with: url) { data, _, err in
+  guard let data else { return }
+  ...
+}</pre>
+              <div class="wf-bar w80"></div><div class="wf-bar w40"></div>
+            </div>
+            <div class="chat-mini" data-spec="gap:--spacingHorizontalS|radius:--borderRadiusLarge">
+              <div class="wf-label">Ask the docs</div>
+              <div class="bubble user">How do I cancel a task?</div>
+              <div class="bubble">Call <code>cancel()</code> on the task; the completion handler receives <code>NSURLErrorCancelled</code>. <span class="cite">1</span> <span class="cite">2</span></div>
+              <div class="ai-tag">AI-generated · check references</div>
+            </div>
+          </div>
+        </div>
+        <figcaption><span>Schematic of the shipped layout: reference sidebar, API explorer with code tabs, and the streaming answer panel with citations. Redlines are measured live from this page's tokens.</span><button class="btn btn-sm" type="button" id="mock-specs-toggle" aria-pressed="true">Hide specs</button></figcaption>
+      </figure>
+    </article>
+
+    <!-- ---------------- Equinix -->
+    <article class="case" id="work-equinix" aria-labelledby="equinix-h">
+      <div>
+        <ul class="tags" aria-label="Surface types">
+          <li>Admin portal</li><li>Data dashboards</li><li>Legacy → cloud-native</li>
+        </ul>
+        <h3 id="equinix-h">≈40% shorter release cycle and ≈30% fewer production defects after a legacy AngularJS front end became a token-driven React design system.</h3>
+        <p class="who"><b>Equinix · San Jose, CA · Jan 2024 – Dec 2024.</b> Front-End Architect / Lead — from inception to production, shipping quarterly feature trains across distributed product squads.</p>
+        <details class="case-details"><summary>Read the full Equinix case</summary>
+        <dl class="steps">
+          <div><dt>Context</dt><dd>The product lifecycle platform for a global data-center operator: product managers define, version and publish SKUs for colocation, interconnection and Fabric across 240+ data centers, with pricing in multiple currencies across 30+ countries.</dd></div>
+          <div><dt>How I learned</dt><dd>Sat with product, sales-operations and finance stakeholders to translate pricing and product business rules into admin workflows, and ran a weekly front-end office hour for the wider engineering org — the fastest way to hear where the UI was getting in people's way.</dd></div>
+          <div><dt>Designed</dt><dd><ul>
+            <li>Admin dashboards for defining, versioning and publishing SKUs with real-time validation.</li>
+            <li>A JSON-schema-driven form engine so product managers launch new ordering workflows without an engineering change.</li>
+            <li>A draft → review → approve → publish lifecycle with audit logging, change-history diffs and role-based access across product, pricing and legal reviewers.</li>
+            <li>Executive analytics dashboards: product adoption, regional availability gaps, quarterly release performance.</li>
+          </ul></dd></div>
+          <div><dt>Built</dt><dd><ul>
+            <li>Migration from AngularJS to TypeScript React 18 + Next.js, and the platform's reusable design system and component library (Tailwind CSS + Storybook, token-driven theming, variant APIs, documentation) — with extensions adopted by adjacent platform teams.</li>
+            <li>Virtualized data grids (AG Grid) with server-side pagination, in-cell editing and bulk operations on tens of thousands of records without jank; capacity, utilization, pricing and interconnection analytics in D3.js and Recharts.</li>
+            <li>CI/CD in GitHub Actions and GitLab CI with Playwright and Cypress suites, accessibility validation and visual-regression gates; LaunchDarkly progressive rollouts; TypeScript strict mode, custom ESLint rules and a Jest + RTL baseline.</li>
+          </ul></dd></div>
+        </dl>
+        </details>
+        <div class="measured">
+          <h4>Measured</h4>
+          <ul>
+            <li>Release cycle time <span class="num">≈40%</span> shorter after the design system and component library shipped.</li>
+            <li>Production defects <span class="num">≈30%</span> fewer with accessibility and visual-regression gates in the pipeline.</li>
+            <li>Unit-test coverage from <span class="num">under 30% to over 80%</span>.</li>
+            <li>Grids stayed responsive at tens of thousands of product records.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="mock">
+        <div class="mock-body wf">
+          <div class="dash">
+            <div class="lifecycle" aria-label="Publishing lifecycle"><span>Draft</span><i>→</i><span>Review</span><i>→</i><span class="on">Approve</span><i>→</i><span>Publish</span></div>
+            <div class="kpis" data-spec="gap:--spacingHorizontalS|radius:--borderRadiusMedium">
+              <div class="kpi"><b class="num">1,284</b><span>SKUs in catalog</span></div>
+              <div class="kpi"><b class="num">37</b><span>awaiting approval</span></div>
+              <div class="kpi"><b class="num">12</b><span>regions with gaps</span></div>
+            </div>
+            <div class="chart-wrap">
+              <figure style="margin:0">
+                <svg viewBox="0 0 420 168" role="img" aria-labelledby="chart-t chart-d">
+                  <title id="chart-t">Capacity utilization by metro, sample values</title>
+                  <desc id="chart-d">Horizontal bar chart of six metros. Frankfurt 91 percent, Singapore 86, Ashburn 82, Tokyo 74, São Paulo 63, Dallas 58. Values are illustrative.</desc>
+                  <g font-family="var(--fontFamilyBase)" font-size="11" fill="var(--colorNeutralForeground2)">
+                    <text x="0" y="12">Frankfurt</text><rect x="72" y="3" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="3" width="273" height="12" fill="var(--colorBrandForeground1)"/><text x="340" y="13" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">91%</text>
+                    <text x="0" y="38">Singapore</text><rect x="72" y="29" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="29" width="258" height="12" fill="var(--colorBrandForeground1)"/><text x="325" y="39" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">86%</text>
+                    <text x="0" y="64">Ashburn</text><rect x="72" y="55" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="55" width="246" height="12" fill="var(--colorBrandForeground1)"/><text x="313" y="65" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">82%</text>
+                    <text x="0" y="90">Tokyo</text><rect x="72" y="81" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="81" width="222" height="12" fill="var(--colorBrandForeground1)"/><text x="289" y="91" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">74%</text>
+                    <text x="0" y="116">São Paulo</text><rect x="72" y="107" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="107" width="189" height="12" fill="var(--colorBrandForeground1)"/><text x="256" y="117" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">63%</text>
+                    <text x="0" y="142">Dallas</text><rect x="72" y="133" width="300" height="12" fill="var(--colorNeutralStroke2)"/><rect x="72" y="133" width="174" height="12" fill="var(--colorBrandForeground1)"/><text x="241" y="143" text-anchor="end" fill="var(--colorNeutralForegroundOnBrand)" font-weight="600">58%</text>
+                    <line x1="72" y1="150" x2="372" y2="150" stroke="var(--colorNeutralStrokeAccessible)"/>
+                    <text x="72" y="164" font-size="10" fill="var(--colorNeutralForeground3)">0%</text><text x="372" y="164" font-size="10" text-anchor="end" fill="var(--colorNeutralForeground3)">100%</text>
+                  </g>
+                </svg>
+                <figcaption class="small muted" style="padding:6px 0 0">Capacity utilization by metro — sample values for illustration; production data is confidential.</figcaption>
+              </figure>
+              <details open>
+                <summary>Same data as a table</summary>
+                <table class="data-table">
+                  <caption>Capacity utilization by metro (sample)</caption>
+                  <thead><tr><th scope="col">Metro</th><th scope="col" class="num">Utilization</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Frankfurt</th><td class="num">91%</td></tr>
+                    <tr><th scope="row">Singapore</th><td class="num">86%</td></tr>
+                    <tr><th scope="row">Ashburn</th><td class="num">82%</td></tr>
+                    <tr><th scope="row">Tokyo</th><td class="num">74%</td></tr>
+                    <tr><th scope="row">São Paulo</th><td class="num">63%</td></tr>
+                    <tr><th scope="row">Dallas</th><td class="num">58%</td></tr>
+                  </tbody>
+                </table>
+              </details>
+            </div>
+            <div class="scroll-x"><table class="grid-mini" aria-label="Sample rows from the SKU grid">
+              <thead><tr><th scope="col">SKU</th><th scope="col">Product line</th><th scope="col">Status</th><th scope="col" class="num">Regions</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">CAB-42U-2N</td><td>Colocation</td><td>Approve</td><td class="num">31</td></tr>
+                <tr><td class="mono">XC-SMF-10G</td><td>Interconnection</td><td>Published</td><td class="num">58</td></tr>
+                <tr><td class="mono">FAB-VC-100</td><td>Fabric</td><td>Review</td><td class="num">17</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <figcaption><span>Schematic of the admin portal: publishing lifecycle, KPI tiles, an accessible chart with its table twin, and the virtualized SKU grid.</span></figcaption>
+      </figure>
+    </article>
+
+    <!-- ---------------- Wells Fargo -->
+    <article class="case" id="work-wells" aria-labelledby="wells-h">
+      <div>
+        <ul class="tags" aria-label="Surface types">
+          <li>Workflow tool</li><li>Regulated</li><li>WCAG 2.1 AA</li>
+        </ul>
+        <h3 id="wells-h">A guided personal-loan application designed from scratch — interaction, visual and front end — with WCAG 2.1 AA owned on audit-reviewed flows.</h3>
+        <p class="who"><b>Wells Fargo · Fremont, CA · Dec 2021 – Feb 2023.</b> Front-End Lead — led the team across React development, unit and BDD testing, test-data management, CI/CD, multi-environment and accessibility testing.</p>
+        <details class="case-details"><summary>Read the full Wells Fargo case</summary>
+        <dl class="steps">
+          <div><dt>Context</dt><dd>A loan-processing platform where officers analyze, update and report on applications across multiple banks and portfolios — and where borrowers apply through FlexLoan, a flexible low-interest personal loan.</dd></div>
+          <div><dt>How I learned</dt><dd>Worked with Product, UX and Visual Designers to translate concepts into production interfaces, and with risk, compliance and legal to turn TILA, RESPA and ECOA requirements into flows a borrower can actually finish — every error state had to be identifiable, every step keyboard-operable.</dd></div>
+          <div><dt>Designed</dt><dd><ul>
+            <li>FlexLoan: a multi-step application with progressive disclosure, contextual help and inline eligibility feedback.</li>
+            <li>The loan-processor workspace (review, annotate, approve) and role-based dashboards for underwriters, supervisors and compliance auditors with SLA tracking.</li>
+            <li>An eligibility decisioning UI combining Experian, Equifax and TransUnion data with debt-to-income calculators and risk-tier visualizations.</li>
+          </ul></dd></div>
+          <div><dt>Built</dt><dd><ul>
+            <li>A reusable React component library delivering the design specs at spec fidelity; D3.js and Chart.js portfolio analytics.</li>
+            <li>Secure document upload with OCR extraction and human verification queues; regulator-ready PDF report generation; field-level encryption and tokenization for PII under PCI-DSS and SOX.</li>
+            <li>Jenkins CI/CD with security-scanning gates; a React Native companion app with Face ID, Touch ID and Android BiometricPrompt tied to enterprise SSO.</li>
+          </ul></dd></div>
+        </dl>
+        </details>
+        <div class="measured">
+          <h4>Measured</h4>
+          <ul>
+            <li>WCAG 2.1 AA and ADA conformance across the consumer-facing flows, validated with JAWS, NVDA and VoiceOver on audit-reviewed screens.</li>
+            <li>This program did not capture task-time or adoption figures; the outcome that was audited is accessibility conformance, and it passed.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="mock">
+        <div class="mock-body wf">
+          <div class="flow">
+            <div class="wf-label">FlexLoan applicant journey — progressive disclosure</div>
+            <ol>
+              <li><b>Check eligibility</b><span class="note">Amount and purpose only. Inline feedback: "Based on this, you're likely eligible for $2,000–$15,000."</span></li>
+              <li><b>Choose terms</b><span class="note">Payment preview updates as the slider moves; APR explained in context, not a footnote.</span></li>
+              <li><b>Verify identity</b><span class="note">Only the fields the decision needs; SSN masked and tokenized at the field.</span></li>
+              <li><b>Add income documents</b><span class="note">Upload → OCR pre-fills → applicant confirms. Human review queue when confidence is low.</span></li>
+              <li><b>Review and sign</b><span class="note">Disclosures in plain language; errors named and linked to the field that needs attention.</span></li>
+            </ol>
+            <div class="callout">Every step keyboard-operable, every error identified in text, every screen validated with a screen reader before audit.</div>
+          </div>
+        </div>
+        <figcaption><span>Reconstructed journey for the shipped flow; copy is representative, not verbatim.</span></figcaption>
+      </figure>
+    </article>
+
+    <!-- ---------------- Also shipped -->
+    <div class="also" id="also-shipped" aria-label="Also shipped">
+      <article id="also-ebay">
+        <div><h4>eBay Motors — vehicle-service booking</h4><p class="when">Feb 2023 – Dec 2023 · Front-End Architect / Lead · consumer + dealer</p></div>
+        <p>Designed the end-to-end booking interaction model — multi-step scheduling, availability calendars, inline validation, optimistic state, error recovery — and the dealer-facing operations dashboard. Ran LaunchDarkly experiments on checkout copy, search-result layouts and pricing displays, with Datadog RUM and Adobe Analytics funnel and abandonment analysis feeding the next iteration. Designed the AI-assisted UI patterns: confidence scoring, explainability indicators, feedback loops, and labeling AI-generated versus human-authored content. CI/CD on Tekton and Azure DevOps cut time to market by ≈40%; React Native iOS and Android apps mirrored the booking flow.</p>
+      </article>
+      <article id="also-comcast">
+        <div><h4>Comcast Xfinity — legacy portal to React</h4><p class="when">Sept 2019 – Nov 2021 · Senior Front-End Developer · legacy → cloud-native</p></div>
+        <p>Led the incremental migration of a Java/JSP customer-management portal to a React + TypeScript SPA with a strangler-fig pattern — no downtime. Decoupled the monolithic pipeline into microfrontends composed at runtime with Module Federation: release cadence went from weekly to multiple deploys per day. Request batching, deduplication and client-side caching against the .NET Core back end cut API round-trips per screen by 60%. 99.6% unit-test coverage; higher-order components for interaction analytics gave stakeholders usage data for product decisions.</p>
+      </article>
+      <article id="also-usbank">
+        <div><h4>US Bank (via Hero Digital) — JSP marketing site to React SPA</h4><p class="when">July 2017 – Sept 2019 · Senior Front-End Consultant · legacy → modern</p></div>
+        <p>Replaced the legacy JSP site with a React SPA delivering 15 new digital-banking features across consumer-credit and prepaid card lines. Multi-page application forms persisted input and pre-populated downstream steps to reduce drop-off; Google Places autocomplete pre-filled addresses. WCAG 2.1 AA maintained across all product pages and validated with JAWS and NVDA; 99.6% Jest coverage wired into release gating; a multi-brand SCSS token architecture for co-branded card products.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== AI PATTERNS -->
+<section id="ai-patterns" aria-labelledby="ai-h">
+  <div class="wrap ai-grid">
+    <div>
+      <p class="eyebrow">AI-powered UX</p>
+      <h2 id="ai-h">Trust is an interaction pattern, not a badge</h2>
+      <p class="lede" style="font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400)">The panel on the right answers questions about this portfolio. It is a deterministic demo — no model is called — built to the conventions a Copilot-style feature needs: it streams, it can be stopped, it cites sources you can click, it says when it has none, and it labels itself.</p>
+      <dl class="patterns">
+        <div><dt>Grounding, not a percentage</dt><dd>Users can act on "grounded in 2 sections" or "no source on this page"; they can't act on "confidence 71%". Shipped as confidence and explainability indicators at eBay; carried into the Apple search experience.</dd></div>
+        <div><dt>Refusal is a state</dt><dd>When the answer has no source, the panel says so and offers a next step — the same fallback logic the Apple components handle for partial and failed responses.</dd></div>
+        <div><dt>Streaming with a way out</dt><dd>Progressive rendering keeps the UI responsive under model latency; Send becomes Stop while generating; screen readers hear the answer once, when it completes, not token by token.</dd></div>
+        <div><dt>Labeled and reviewable</dt><dd>AI-generated content is marked as such, references resolve to real anchors, and like / dislike / report close the feedback loop — the responsible-AI layer from the eBay work.</dd></div>
+      </dl>
+    </div>
+    <div class="copilot" role="region" aria-labelledby="copilot-h">
+      <div class="copilot-head">
+        <h3 id="copilot-h">Ask about this portfolio</h3>
+        <span class="ai-tag">Demo · no model call</span>
+      </div>
+      <div class="copilot-log" id="copilot-log" role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false" aria-label="Conversation">
+        <div class="msg msg-ai">
+          <div class="body"><p>Hi — I can answer three questions about Alex's work, with references that link to the sections they come from. Try one of the suggestions, or ask something else to see what "no source" looks like.</p></div>
+        </div>
+      </div>
+      <form class="copilot-form" id="copilot-form">
+        <div class="suggest" id="copilot-suggest" aria-label="Suggested questions">
+          <button type="button" class="btn btn-sm" data-q="What did Alex ship at Equinix?">What did Alex ship at Equinix?</button>
+          <button type="button" class="btn btn-sm" data-q="How does Alex handle accessibility?">How does Alex handle accessibility?</button>
+          <button type="button" class="btn btn-sm" data-q="Has Alex built AI-powered UX before?">Has Alex built AI-powered UX before?</button>
+        </div>
+        <label for="copilot-input">Your question</label>
+        <div class="row">
+          <input id="copilot-input" type="text" autocomplete="off" placeholder="Ask about Alex's work…" maxlength="200">
+          <button class="btn btn-primary" type="submit" id="copilot-send">Send</button>
+        </div>
+        <p class="disclaimer">AI-generated content may be incorrect. Check the references before you rely on an answer.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PRACTICE -->
+<section id="practice" aria-labelledby="practice-h">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Practice</p>
+        <h2 id="practice-h">How this page holds itself to the same standard</h2>
+      </div>
+    </div>
+    <div class="practice-grid">
+      <div class="card" id="practice-a11y">
+        <h3>Accessibility statement</h3>
+        <p class="small">Target: WCAG 2.2 AA. Below is what was actually tested on this page, and what wasn't yet. A claim that lists no test method isn't a claim.</p>
+        <ul class="checks" id="a11y-checks">
+          <li><span class="ok" aria-hidden="true">✓</span><span><strong>axe-core 4.10.2</strong> via Playwright (Chromium, 1280×900), WCAG 2.x A/AA + best-practice rules: <span id="axe-result">0 violations</span> in light and dark themes, specs on and off. Tested 9 Sept 2026.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span>Computed contrast for every visible text element against its effective background (369 light / 368 dark): none below 4.5:1 for body text or 3:1 for large text; redline pills 5.9:1 light / 6.1:1 dark.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span>Keyboard: skip link first in tab order, 36 focusable controls, theme as a native radio group, sticky-nav <code>scroll-padding</code>, two-tone <code>:focus-visible</code> ring; Escape stops generation in the demo.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span>Reflow at 360 CSS px with no horizontal scroll; wide tables scroll inside their own container; disclosure targets ≥ 24 px.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span><code>prefers-reduced-motion</code> honored: the demo inserts the full answer at once; redline fade disabled; smooth scroll off.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span>Streaming answers use <code>role="log"</code> + <code>aria-busy</code>, announced once on completion through a persistent <code>role="status"</code> region; answers are inserted with <code>textContent</code>, never <code>innerHTML</code>.</span></li>
+          <li><span class="todo" aria-hidden="true">!</span><span>Not yet run on this page: NVDA + Edge, JAWS, VoiceOver + Safari, Windows High Contrast (a <code>forced-colors</code> stylesheet ships, unverified). Known exception: the redline overlay is visual-only — its text twin is in the next card.</span></li>
+        </ul>
+      </div>
+
+      <div class="card" id="practice-specs">
+        <h3>Specs mode and tokens</h3>
+        <p class="small">Press <strong>Show specs</strong> in the header and the page annotates its own components with measured sizes and the tokens that produced them — read from <code>getComputedStyle</code> at render, recomputed on resize. Switch density and the numbers change, because the tokens did. Tokens follow Fluent 2 naming so they read the same to a Fluent UI reviewer; this page does not load Fluent UI React.</p>
+        <div class="controls-row">
+          <button class="btn" type="button" id="specs-toggle-2" aria-pressed="false">Show specs</button>
+          <button class="switch" type="button" role="switch" aria-checked="false" id="density-switch"><span class="track" aria-hidden="true"></span><span>Compact density</span></button>
+        </div>
+        <details class="spec-text">
+          <summary>Specs as text (live)</summary>
+          <div class="scroll-x"><table id="spec-table">
+            <thead><tr><th scope="col">Component</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+        </details>
+      </div>
+
+      <div class="card" id="practice-stack">
+        <h3>Stack against this role</h3>
+        <p class="small">What I've shipped, what's adjacent, and what I'd ramp on in the first weeks — so nobody is surprised in the interview.</p>
+        <div class="scroll-x"><table class="matrix">
+          <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead>
+          <tbody>
+            <tr><td>React + TypeScript</td><td><span class="pill have">Have</span></td><td>React 18 / Next.js at Apple, Equinix, eBay, Wells Fargo</td></tr>
+            <tr><td>Angular · Vue</td><td><span class="pill adj">Adjacent</span></td><td>Working knowledge; AngularJS → React migration at Equinix</td></tr>
+            <tr><td>WCAG 2.1+ · axe · screen readers</td><td><span class="pill have">Have</span></td><td>CI gates at Apple; audited flows at Wells Fargo; JAWS, NVDA, VoiceOver</td></tr>
+            <tr><td>Design systems · Figma</td><td><span class="pill have">Have</span></td><td>Figma Variables → Style Dictionary → React; Storybook; Fluent 2 / Material vocabulary</td></tr>
+            <tr><td>Fluent UI React</td><td><span class="pill ramp">Would ramp</span></td><td>Conventions known (tokens on this page); no production Fluent React shipped</td></tr>
+            <tr><td>AI / Copilot UX</td><td><span class="pill have">Have</span></td><td>Streaming search at Apple; confidence, explainability, feedback loops at eBay</td></tr>
+            <tr><td>Dashboards · D3.js · grids</td><td><span class="pill have">Have</span></td><td>D3, Recharts, AG Grid at Equinix; D3 / Chart.js at Wells Fargo</td></tr>
+            <tr><td>Power BI embedding</td><td><span class="pill ramp">Would ramp</span></td><td>Not shipped; dashboard patterns transfer</td></tr>
+            <tr><td>REST with .NET / Python back ends</td><td><span class="pill have">Have</span></td><td>.NET Core at Comcast; Python/Node BFF layers at Equinix and eBay</td></tr>
+            <tr><td>Azure fundamentals</td><td><span class="pill adj">Adjacent</span></td><td>Azure DevOps pipelines at eBay; Entra / App Service would ramp</td></tr>
+            <tr><td>CI/CD · Docker</td><td><span class="pill have">Have</span></td><td>GitHub Actions, GitLab CI, Azure DevOps, Tekton, Jenkins; Docker</td></tr>
+            <tr><td>WebSockets / SSE · SignalR</td><td><span class="pill adj">Adjacent</span></td><td>SSE and WebSockets shipped; SignalR would ramp</td></tr>
+            <tr><td>Micro-frontends</td><td><span class="pill have">Have</span></td><td>Module Federation at Comcast</td></tr>
+            <tr><td>Application Insights · Clarity</td><td><span class="pill ramp">Would ramp</span></td><td>Datadog RUM, Adobe Analytics, Kibana in production</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="card" id="practice-exp">
+        <h3>Experience</h3>
+        <ul class="exp">
+          <li><div><b>Apple</b><small>Front-End Architect / Lead — UI, design systems &amp; accessibility</small></div><span>Dec 2024 – July 2026</span></li>
+          <li><div><b>Equinix</b><small>Front-End Architect / Lead</small></div><span>Jan 2024 – Dec 2024</span></li>
+          <li><div><b>eBay</b><small>Front-End Architect / Lead</small></div><span>Feb 2023 – Dec 2023</span></li>
+          <li><div><b>Wells Fargo</b><small>Front-End Architect / Lead</small></div><span>Dec 2021 – Feb 2023</span></li>
+          <li><div><b>Comcast</b><small>Senior Front-End Developer</small></div><span>Sept 2019 – Nov 2021</span></li>
+          <li><div><b>Hero Digital (US Bank)</b><small>Senior Front-End Consultant</small></div><span>July 2017 – Sept 2019</span></li>
+          <li><div><b>Dell</b><small>Senior Web / UI Developer</small></div><span>June 2014 – July 2017</span></li>
+          <li><div><b>Vertex Inc.</b><small>UI Developer</small></div><span>Sept 2013 – Sept 2014</span></li>
+          <li><div><b>JetBlue</b><small>Front-End Developer</small></div><span>June 2010 – May 2013</span></li>
+        </ul>
+        <p class="small muted" style="margin-top:var(--spacingHorizontalM)">M.S. Electrical Engineering, Lehigh University · B.E. Industrial Automation, Shanxi University</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== CONTACT -->
+<section id="contact" class="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-h">Available now — remote, PST hours</h2>
+      <p class="measure" style="margin-top:var(--spacingHorizontalM)">The fastest way to check any of this is a 30-minute walkthrough of a case study with the code open. Email is best.</p>
+    </div>
+    <div class="contact-row">
+      <a class="btn btn-primary" href="mailto:gx7181@gmail.com">gx7181@gmail.com</a>
+      <a class="btn" href="tel:+14843797202">484-379-7202</a>
+      <a class="btn" href="https://www.linkedin.com/in/zhiheng-li-21264217b" rel="me noopener">LinkedIn</a>
+      <a class="btn" href="Alex-Gao-Resume.pdf">Résumé (PDF)</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>One HTML file — no framework, no build step, no tracking.</span>
+    <span>Tokens follow Fluent 2 naming · <a href="#practice-a11y">Accessibility statement</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const root = document.documentElement;
+  const status = $('#a11y-status');
+  const announce = (t) => { status.textContent = ''; setTimeout(() => { status.textContent = t; }, 40); };
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+  let specsOn = false, mockOn = true, raf = 0;   // specs-overlay state; declared early because theme init schedules a render
+
+  /* ---------------- Theme: native radio group, persisted ---------------- */
+  const themeInputs = $$('#theme-seg input');
+  const applyTheme = (v) => {
+    root.classList.add('theme-switching');
+    if (v === 'light' || v === 'dark') root.setAttribute('data-theme', v); else root.removeAttribute('data-theme');
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
+    store.set('theme', v);
+    themeInputs.forEach(i => { i.checked = (i.value === v); });
+    scheduleSpecs();
+  };
+  themeInputs.forEach(i => i.addEventListener('change', () => applyTheme(i.value)));
+  applyTheme(store.get('theme') || 'system');
+
+  /* ---------------- Density switch ---------------- */
+  const density = $('#density-switch');
+  const applyDensity = (compact) => {
+    if (compact) root.setAttribute('data-density', 'compact'); else root.removeAttribute('data-density');
+    density.setAttribute('aria-checked', compact ? 'true' : 'false');
+    store.set('density', compact ? 'compact' : 'comfortable');
+    scheduleSpecs();
+    announce(compact ? 'Compact density on. Spacing tokens remapped.' : 'Comfortable density on.');
+  };
+  density.addEventListener('click', () => applyDensity(density.getAttribute('aria-checked') !== 'true'));
+  if (store.get('density') === 'compact') { root.setAttribute('data-density', 'compact'); density.setAttribute('aria-checked', 'true'); }
+
+  /* ---------------- Specs (redline) overlay ----------------
+     Values are read from the live computed style of each annotated element,
+     so density/theme changes are reflected. The layer is aria-hidden and
+     pointer-events:none; the text twin lives in #spec-table.            */
+  const layer = $('#spec-layer');
+  const specTable = $('#spec-table tbody');
+  const toggles = [$('#specs-toggle'), $('#specs-toggle-2')];
+  const mockToggle = $('#mock-specs-toggle');
+  const label = (el) => el.getAttribute('aria-label') || el.dataset.specName || (el.querySelector('.wf-label') && el.querySelector('.wf-label').textContent.trim()) || el.className.split(' ')[0] || el.tagName.toLowerCase();
+
+  function readSpecs(el) {
+    const cs = getComputedStyle(el);
+    const out = [];
+    el.dataset.spec.split('|').forEach(pair => {
+      const [prop, token] = pair.split(':');
+      const val = cs.getPropertyValue(token).trim();
+      out.push({ prop, token, val });
+    });
+    return out;
+  }
+
+  function draw(el, specs) {
+    const r = el.getBoundingClientRect();
+    const x = r.left + window.scrollX, y = r.top + window.scrollY;
+    const box = document.createElement('div');
+    box.className = 'spec-box';
+    box.style.cssText = `left:${x}px;top:${y}px;width:${r.width}px;height:${r.height}px`;
+    layer.appendChild(box);
+    const pill = document.createElement('div');
+    pill.className = 'spec-pill';
+    pill.textContent = `${Math.round(r.width)}×${Math.round(r.height)}  ` + specs.map(s => `${s.token} = ${s.val}`).join('  ·  ');
+    pill.style.cssText = `left:${x + 2}px;top:${y + 2}px`;
+    layer.appendChild(pill);
+    clampX(pill, x + 2);
+    // gap measurement between the first two children, when a gap token is declared
+    const gap = specs.find(s => s.prop === 'gap');
+    const kids = Array.from(el.children).filter(k => k.offsetParent !== null && !k.classList.contains('spec-hint') && !k.classList.contains('evidence-caption'));
+    if (gap && kids.length > 1) {
+      const a = kids[0].getBoundingClientRect(), b = kids[1].getBoundingClientRect();
+      const horizontal = Math.abs(a.top - b.top) < 4;
+      const g = document.createElement('div');
+      g.className = 'spec-gap';
+      const gl = document.createElement('div');
+      gl.className = 'spec-gap-label';
+      gl.textContent = `${gap.token} = ${gap.val}`;
+      if (horizontal) {
+        const gx = a.right + window.scrollX, gw = Math.max(0, b.left - a.right);
+        g.style.cssText = `left:${gx}px;top:${a.top + window.scrollY}px;width:${gw}px;height:${a.height}px`;
+        gl.style.cssText = `left:${gx + gw / 2}px;top:${a.top + window.scrollY + a.height / 2}px`;
+      } else {
+        const gy = a.bottom + window.scrollY, gh = Math.max(0, b.top - a.bottom);
+        g.style.cssText = `left:${a.left + window.scrollX}px;top:${gy}px;width:${a.width}px;height:${gh}px;border:0;border-top:1px solid var(--colorRedline);border-bottom:1px solid var(--colorRedline);background:repeating-linear-gradient(0deg,transparent 0 3px,color-mix(in srgb,var(--colorRedline) 35%,transparent) 3px 4px)`;
+        gl.style.cssText = `left:${a.left + window.scrollX + a.width / 2}px;top:${gy + gh / 2}px`;
+      }
+      layer.appendChild(g); layer.appendChild(gl);
+      clampX(gl, parseFloat(gl.style.left) - gl.offsetWidth / 2);
+    }
+  }
+  function clampX(node, x) {
+    const maxRight = document.documentElement.clientWidth - 8;
+    const w = node.offsetWidth;
+    if (x + w > maxRight || x < 8) {
+      node.style.left = Math.max(8, Math.min(x, maxRight - w)) + 'px';
+      if (node.classList.contains('spec-gap-label')) node.style.transform = 'translateY(-50%)';
+    }
+  }
+
+  function renderSpecs() {
+    raf = 0;
+    layer.textContent = '';
+    specTable.textContent = '';
+    const narrow = window.innerWidth < 768 || window.innerHeight < 500;
+    const els = $$('[data-spec]');
+    els.forEach(el => {
+      const inMock = !!el.closest('[data-spec-scope="always"]');
+      const specs = readSpecs(el);
+      // text twin is always populated so the alternative never lags the overlay
+      specs.forEach(s => {
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td'); td1.textContent = label(el);
+        const td2 = document.createElement('td'); td2.className = 'mono'; td2.textContent = `${s.prop}: ${s.token}`;
+        const td3 = document.createElement('td'); td3.className = 'mono'; td3.textContent = s.val;
+        tr.append(td1, td2, td3); specTable.appendChild(tr);
+      });
+      if (narrow) return;
+      const show = specsOn || (inMock && mockOn);
+      if (show) draw(el, specs);
+    });
+  }
+  function scheduleSpecs() { if (!raf) raf = requestAnimationFrame(renderSpecs); }
+
+  function setSpecs(on, src) {
+    specsOn = on;
+    toggles.forEach(b => { b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.textContent = on ? 'Hide specs' : 'Show specs'; });
+    scheduleSpecs();
+    if (src) announce(on ? 'Specs shown. Measured tokens are also listed as text in the Practice section.' : 'Specs hidden.');
+  }
+  toggles.forEach(b => b.addEventListener('click', () => setSpecs(b.getAttribute('aria-pressed') !== 'true', true)));
+  mockToggle.addEventListener('click', () => {
+    mockOn = !mockOn;
+    mockToggle.setAttribute('aria-pressed', mockOn ? 'true' : 'false');
+    mockToggle.textContent = mockOn ? 'Hide specs' : 'Show specs';
+    scheduleSpecs();
+  });
+  window.addEventListener('resize', scheduleSpecs);
+  window.addEventListener('load', scheduleSpecs);
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(scheduleSpecs);
+    $$('[data-spec]').forEach(el => ro.observe(el));
+    ro.observe(document.body);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleSpecs);
+  scheduleSpecs();
+
+  /* ---------------- Copilot demo (deterministic, grounded in this page) ----------------
+     Answers are plain strings inserted with textContent — never innerHTML — because
+     in production the same slot holds untrusted model output.                    */
+  const KB = [
+    {
+      keys: ['equinix', 'ship at equinix', 'equinix work'],
+      grounding: { tier: 'ok', text: 'Grounded · 2 sections on this page' },
+      answer: 'At Equinix (Jan – Dec 2024) Alex led the front end of the product lifecycle platform from inception to production: migrated the legacy AngularJS UI to React 18 + TypeScript and Next.js, built the token-driven design system and component library, and shipped the SKU admin dashboards, a JSON-schema-driven form engine, the draft → review → approve → publish lifecycle, and virtualized data grids over tens of thousands of records. Reported outcomes: release cycle ≈40% shorter, production defects ≈30% fewer, unit-test coverage from under 30% to over 80%.',
+      refs: [['Equinix case study', '#work-equinix'], ['Evidence strip', '#top']],
+      followups: ['How does Alex handle accessibility?', 'Has Alex built AI-powered UX before?']
+    },
+    {
+      keys: ['accessib', 'a11y', 'wcag', 'screen reader'],
+      grounding: { tier: 'ok', text: 'Grounded · 3 sections on this page' },
+      answer: 'Alex treats accessibility as a gate, not an audit. At Apple, axe-core and Playwright run in CI and block merges on contrast, label, role and focus-order violations. At Wells Fargo, Alex owned WCAG 2.1 AA and ADA conformance on audit-reviewed lending flows, validated with JAWS, NVDA and VoiceOver. This page publishes its own statement listing exactly which tests were run and which were not.',
+      refs: [['Apple case study', '#work-apple'], ['Wells Fargo case study', '#work-wells'], ['Accessibility statement', '#practice-a11y']],
+      followups: ['What did Alex ship at Equinix?', 'Has Alex built AI-powered UX before?']
+    },
+    {
+      keys: ['ai', 'copilot', 'llm', 'chat', 'streaming'],
+      grounding: { tier: 'ok', text: 'Grounded · 3 sections on this page' },
+      answer: 'Yes. At Apple, Alex designed and built the streaming conversational documentation search — partial responses, progressive rendering, retry and fallback states, skeleton loading and latency-aware interaction — plus RAG semantic search over API references. At eBay, Alex designed the AI-assisted UI patterns: confidence scoring, explainability indicators, feedback loops, and labeling AI-generated versus human-authored content. The panel you are using applies those patterns: grounding tiers, a refusal state, stop-able streaming and clickable references.',
+      refs: [['Apple case study', '#work-apple'], ['eBay — also shipped', '#also-ebay'], ['AI-powered UX', '#ai-patterns']],
+      followups: ['What did Alex ship at Equinix?', 'How does Alex handle accessibility?']
+    }
+  ];
+  const REFUSAL = {
+    grounding: { tier: 'none', text: 'No source on this page' },
+    answer: "I don't have a source for that on this page, so I won't guess. Try one of the suggested questions, or email Alex directly — gx7181@gmail.com.",
+    refs: [['Contact', '#contact']],
+    followups: ['What did Alex ship at Equinix?', 'How does Alex handle accessibility?', 'Has Alex built AI-powered UX before?']
+  };
+
+  const log = $('#copilot-log'), form = $('#copilot-form'), input = $('#copilot-input'), send = $('#copilot-send');
+  let streaming = null;
+
+  function el(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+
+  function addUser(q) {
+    const m = el('div', 'msg msg-user'); const b = el('div', 'body'); b.appendChild(el('p', null, q)); m.appendChild(b); log.appendChild(m); log.scrollTop = log.scrollHeight;
+  }
+
+  function addAnswer(entry) {
+    const m = el('article', 'msg msg-ai'); m.setAttribute('aria-busy', 'true'); m.setAttribute('aria-label', 'Answer');
+    const g = el('span', 'grounding ' + entry.grounding.tier, entry.grounding.text);
+    const b = el('div', 'body'); const p = el('p', null, ''); b.appendChild(p);
+    m.append(g, b); log.appendChild(m); log.scrollTop = log.scrollHeight;
+
+    const finish = () => {
+      m.setAttribute('aria-busy', 'false');
+      if (entry.refs.length) {
+        const refs = el('ol', 'refs'); refs.setAttribute('aria-label', 'References');
+        entry.refs.forEach(([t, href], i) => { const li = el('li'); const a = el('a'); a.href = href; a.append(el('span', 'n', String(i + 1)), document.createTextNode(t)); li.appendChild(a); refs.appendChild(li); });
+        m.appendChild(refs);
+      }
+      const tools = el('div', 'msg-tools');
+      tools.appendChild(el('span', 'ai-tag', 'AI-generated · check references'));
+      ['Like', 'Dislike', 'Report'].forEach(name => {
+        const bt = el('button', 'btn btn-sm', name); bt.type = 'button'; bt.setAttribute('aria-pressed', 'false');
+        bt.addEventListener('click', () => {
+          const on = bt.getAttribute('aria-pressed') !== 'true';
+          Array.from(tools.querySelectorAll('button')).forEach(o => o.setAttribute('aria-pressed', 'false'));
+          bt.setAttribute('aria-pressed', on ? 'true' : 'false');
+          announce(on ? `Feedback recorded: ${name.toLowerCase()}. Thanks.` : 'Feedback cleared.');
+        });
+        tools.appendChild(bt);
+      });
+      m.appendChild(tools);
+      if (entry.followups && entry.followups.length) {
+        const f = el('div', 'followups'); f.setAttribute('aria-label', 'Follow-up questions');
+        entry.followups.forEach(q => { const bt = el('button', 'btn btn-sm', q); bt.type = 'button'; bt.addEventListener('click', () => ask(q)); f.appendChild(bt); });
+        m.appendChild(f);
+      }
+      log.scrollTop = log.scrollHeight;
+      streaming = null;
+      send.textContent = 'Send'; send.setAttribute('aria-label', 'Send');
+      announce(`Answer complete. ${entry.refs.length} reference${entry.refs.length === 1 ? '' : 's'}. ${entry.grounding.text}.`);
+    };
+
+    if (reduced()) { p.textContent = entry.answer; finish(); return; }
+    const words = entry.answer.split(' ');
+    let i = 0, timer = 0;
+    const step = () => {
+      if (!streaming) return;
+      p.textContent += (i ? ' ' : '') + words[i++];
+      log.scrollTop = log.scrollHeight;
+      if (i < words.length) timer = setTimeout(step, 28); else finish();
+    };
+    streaming = { stop() { clearTimeout(timer); p.textContent += ' …'; p.appendChild(el('span', 'muted small', ' (stopped)')); finish(); } };
+    announce('Answer started.');
+    step();
+  }
+
+  function resolve(q) {
+    const s = q.toLowerCase();
+    return KB.find(k => k.keys.some(key => s.includes(key))) || REFUSAL;
+  }
+  function ask(q) {
+    if (streaming) return;
+    q = (q || '').trim(); if (!q) { input.focus(); return; }
+    addUser(q); input.value = '';
+    send.textContent = 'Stop generating';
+    addAnswer(resolve(q));
+  }
+  form.addEventListener('submit', (e) => { e.preventDefault(); if (streaming) { streaming.stop(); return; } ask(input.value); });
+  $$('#copilot-suggest button').forEach(b => b.addEventListener('click', () => ask(b.dataset.q)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && streaming) { streaming.stop(); } });
+
+  /* ---------------- Résumé link: hide if the file isn't present (artifact preview) ---------------- */
+  fetch('Alex-Gao-Resume.pdf', { method: 'HEAD' }).then(r => { if (!r.ok) throw 0; }).catch(() => {
+    $$('a[href="Alex-Gao-Resume.pdf"]').forEach(a => { a.setAttribute('aria-disabled', 'true'); a.setAttribute('href', '#contact'); a.textContent = 'Résumé on request'; });
+  });
+})();
+</script>
+
+</body>
+</html>
