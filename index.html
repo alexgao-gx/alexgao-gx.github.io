@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alex Gao · UX Engineer</title>
-<meta name="description" content="Portfolio of Alex (Zhiheng Li) Gao — Senior UX Engineer / Front-End Engineer. Design systems, accessibility, AI-powered interfaces and data-heavy admin tools in React + TypeScript, demonstrated on the page itself.">
+<meta name="description" content="Portfolio of Alex (Zhiheng Li) Gao — Senior UX Engineer / Front-End Engineer. Design systems, accessibility, AI-powered interfaces, real-time 3D (WebGL, Three.js) and MVVM state architecture in JavaScript, TypeScript, React and Vue — demonstrated on the page itself.">
 <meta property="og:title" content="Alex (Zhiheng Li) Gao · UX Engineer">
 <meta property="og:description" content="Fifteen years of enterprise front ends. Outcome-first case studies, a working Copilot-pattern demo, a component gallery, and a page that measures its own tokens and Core Web Vitals.">
 <meta property="og:type" content="website">
@@ -514,6 +514,41 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
   .journey-rail li[aria-current="step"] .n{outline:3px solid Highlight;outline-offset:2px}.nav ul a[aria-current="true"]{border-bottom-color:Highlight}
   .docs-rail a[aria-current="page"],.stories label:has(input:checked){text-decoration:underline}
 }
+/* real-time 3D (section 02): one ViewModel, WebGL / Three.js / DOM views */
+.rt-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--spacingHorizontalXXL) var(--spacingHorizontalXXXL)}
+@media (min-width:1000px){.rt-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}.rt-grid > .figure{position:sticky;top:calc(var(--nav-h) + 24px);align-self:start}}
+.rt-toolbar{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalM) var(--spacingHorizontalL);align-items:center;padding:10px 12px;border-bottom:1px solid var(--colorNeutralStroke2)}
+.rt-toolbar .seg{flex-wrap:wrap;max-width:100%}
+.rt-toolbar .seg label{min-height:28px}
+.rt-stage{position:relative;width:100%;aspect-ratio:16/10;background:var(--colorNeutralBackground2);overflow:hidden}
+.rt-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.rt-stage canvas:active{cursor:grabbing}
+.rt-stage canvas[hidden]{display:none}
+.rt-legend{position:absolute;left:10px;top:10px;margin:0;padding:4px 8px;list-style:none;display:flex;gap:10px;flex-wrap:wrap;font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground2);background:color-mix(in srgb,var(--colorNeutralBackground1) 88%,transparent);border-radius:var(--borderRadiusMedium);pointer-events:none}
+.rt-legend li{margin:0;display:inline-flex;align-items:center;gap:5px}
+.rt-legend i{width:10px;height:10px;border-radius:2px;background:var(--sw)}
+.rt-sel{position:absolute;left:10px;bottom:10px;max-width:min(60%,300px);margin:0;padding:8px 10px;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStroke1);border-radius:var(--borderRadiusMedium);box-shadow:var(--shadow16);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground2)}
+.rt-sel b{display:block;color:var(--colorNeutralForeground1);font-size:var(--fontSizeBase300);line-height:var(--lineHeightBase300)}
+.rt-sel:empty{display:none}
+.rt-cam{position:absolute;right:10px;bottom:10px;display:grid;grid-template-columns:repeat(3,32px);gap:4px}
+.rt-cam .btn{min-height:32px;padding:0;font-size:15px;line-height:1}
+.rt-cam .btn.wide{grid-column:1 / -1}
+.rt-msg{position:absolute;left:50%;top:12px;transform:translateX(-50%);max-width:calc(100% - 24px);padding:6px 10px;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStroke1);border-radius:var(--borderRadiusMedium);box-shadow:var(--shadow16);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground2)}
+.rt-msg:empty{display:none}
+.rt-fallback[hidden]{display:none}
+.rt-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:var(--spacingHorizontalXL);text-align:center;color:var(--colorNeutralForeground2)}
+.rt-foot{display:flex;flex-wrap:wrap;gap:var(--spacingHorizontalS) var(--spacingHorizontalL);padding:8px 12px;border-top:1px solid var(--colorNeutralStroke2);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground3)}
+.rt-foot b{color:var(--colorNeutralForeground1);font-variant-numeric:tabular-nums;font-weight:var(--fontWeightSemibold)}
+.rt-twin{padding:8px 12px 12px;border-top:1px solid var(--colorNeutralStroke2)}
+.rt-twin summary{cursor:pointer;color:var(--colorBrandForeground1);font-weight:var(--fontWeightSemibold);font-size:var(--fontSizeBase200);min-height:24px;padding:3px 0}
+.rt-table td button{font:inherit;font-variant-numeric:tabular-nums;min-height:28px;min-width:56px;padding:0 8px;border:1px solid transparent;border-radius:var(--borderRadiusMedium);background:none;color:var(--colorNeutralForeground1);cursor:pointer}
+.rt-table td button:hover{border-color:var(--colorNeutralStrokeAccessible)}
+.rt-table td button[aria-pressed="true"]{background:var(--colorBrandBackground2);border-color:var(--colorBrandStroke1);color:var(--colorBrandForeground1)}
+.rt-code{margin-top:var(--spacingHorizontalL)}
+.rt-code summary{cursor:pointer;color:var(--colorBrandForeground1);font-weight:var(--fontWeightSemibold);min-height:24px;padding:3px 0}
+.rt-code pre{margin:8px 0 0;padding:12px;max-height:380px;overflow:auto;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStroke2);border-radius:var(--borderRadiusMedium);font-family:var(--fontFamilyMonospace);font-size:var(--fontSizeBase200);line-height:var(--lineHeightBase200);color:var(--colorNeutralForeground1);white-space:pre}
+.rt-code pre:focus-visible{outline:var(--strokeWidthThick) solid var(--colorStrokeFocus2);outline-offset:2px}
+@container frame (width < 520px){.rt-stage{aspect-ratio:5/4}.rt-sel{max-width:calc(100% - 20px);bottom:auto;top:44px}.rt-cam{grid-template-columns:repeat(3,28px)}.rt-cam .btn{min-height:28px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -527,6 +562,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
     <nav aria-label="Sections">
       <ul id="nav-list">
         <li><a href="#work">Work</a></li>
+        <li><a href="#realtime">3D</a></li>
         <li><a href="#system">System</a></li>
         <li><a href="#ai-patterns">AI</a></li>
         <li><a href="#practice">Practice</a></li>
@@ -554,7 +590,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
       <p class="eyebrow">Senior UX Engineer · Front-End Engineer · Remote (PST)</p>
       <h1 id="name">Alex <span class="nobr">(Zhiheng Li)</span> Gao</h1>
       <p class="thesis">I design the interaction and ship the front end — in the same pull request.</p>
-      <p class="lede">Design systems, accessibility and AI-powered interfaces for enterprise platforms — most recently the component library and CI accessibility gate for Apple's documentation platform, and the admin dashboards for Equinix's product platform. Everything about this page is measured on it; everything about the work is sourced to the résumé.</p>
+      <p class="lede">Design systems, accessibility and AI-powered interfaces for enterprise platforms — most recently the component library and CI accessibility gate for Apple's documentation platform, and the admin dashboards for Equinix's product platform. Section 02 renders the Equinix capacity data in real-time 3D — hand-written WebGL and Three.js driven by one Vue-style reactive ViewModel. Everything about this page is measured on it; everything about the work is sourced to the résumé.</p>
       <p class="meta-line">Santa Clara, CA · open to 100% remote (US), PST hours · Green Card, no sponsorship needed</p>
       <div class="cta">
         <a class="btn btn-primary" href="Alex-Gao-Resume.pdf" id="resume-link">Résumé (PDF)</a>
@@ -563,7 +599,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(-
       </div>
     </div>
     <dl class="facts">
-        <dt>Builds in</dt><dd>React 18 + TypeScript, Next.js, Tailwind, Storybook; React Native with Swift/Kotlin native modules; Angular and Vue at working level</dd>
+        <dt>Builds in</dt><dd>JavaScript (ES6+) and TypeScript: React 18, Next.js, Tailwind, Storybook; Vue 3 (Composition API, Pinia/Vuex) with MVVM ViewModels; real-time 3D in WebGL and Three.js; React Native with Swift/Kotlin native modules; Angular at working level</dd>
         <dt>Design systems</dt><dd>Figma Variables → Style Dictionary → React; tokens in Fluent 2 / Material vocabulary; Storybook docs with accessibility annotations</dd>
         <dt>Standard</dt><dd>WCAG 2.1 AA in production; axe-core + Playwright gates in CI; screen-reader validation with NVDA, JAWS, VoiceOver</dd>
         <dt>Learns from</dt><dd>LaunchDarkly experiments and Datadog RUM / Adobe Analytics funnel analysis (eBay); interaction-analytics components (Comcast); a weekly front-end office hour (Equinix)</dd>
@@ -804,11 +840,101 @@ console.log(res.status, res.body.length);</pre>
     </div>
   </div>
 </section>
+<!-- ===================================================== REAL-TIME 3D -->
+<section id="realtime" aria-labelledby="realtime-h">
+  <div class="wrap">
+    <div class="section-head">
+      <div><p class="eyebrow"><span class="n">02</span>Real-time 3D · MVVM</p><h2 id="realtime-h">One ViewModel, three views: hand-written WebGL, Three.js on request, and the DOM</h2></div>
+      <p class="fg2">The capacity view from the Equinix case, rebuilt in 3D on this page. The reactive state that drives it is written here in the style of Vue 3's <code>reactive</code> / <code>computed</code> / <code>watchEffect</code>; the renderers only read it. Switch renderers mid-orbit and the camera does not move, because the camera lives in the ViewModel.</p>
+    </div>
+    <div class="rt-grid">
+      <div>
+        <ul class="tags" aria-label="Surface types"><li>Real-time 3D</li><li>MVVM</li><li>Vue-style reactivity</li><li>Data visualization</li></ul>
+        <p class="metric num">2</p>
+        <h3 id="rt-h">Two draw calls, 18 instanced bars, a sub-millisecond JavaScript frame — and every pixel is bound to state a screen reader can also read.</h3>
+        <p class="who"><b>Built for this page · data from the Equinix admin frame above (240 seeded SKUs, 6 metros, 3 product lines).</b> Production counterpart: the capacity, utilization and interconnection visualizations at Equinix, built with HTML5 Canvas, WebGL and Three.js alongside the D3 and Recharts dashboards.</p>
+        <dl class="steps">
+          <div><dt>Model</dt><dd>The same 240-row seeded dataset the admin portal uses, aggregated to metro × product line. "Live feed" adds a simulated 1 Hz telemetry walk per bar; nothing is fetched.</dd></div>
+          <div><dt>ViewModel</dt><dd>A Proxy-based dependency tracker — <code>reactive()</code>, <code>computed()</code>, <code>effect()</code> — in about forty lines, the same model Vue 3 implements. It owns filters, metric, selection, camera and renderer choice; it holds no DOM node and no GL handle, so it is unit-testable without a browser.</dd></div>
+          <div><dt>Views</dt><dd><ul><li><b>DOM</b> — controls, KPIs, the table twin and the canvas's accessible name are bound with <code>data-model</code> / <code>data-text</code> attributes and effects; two-way, no framework.</li><li><b>WebGL 2</b> — one instanced draw for the bars (per-instance offset, scale, color, id) with Lambert shading in GLSL, plus one draw for a shader-generated grid floor. Picking is a projection test in JavaScript; orbit is pointer drag or the camera buttons.</li><li><b>Three.js</b> — loaded from cdnjs only when you choose it: an <code>InstancedMesh</code>, hemisphere + directional light and a <code>Raycaster</code>, consuming the identical state object.</li></ul></dd></div>
+        </dl>
+        <div class="measured"><h4>This frame, measured</h4><ul>
+          <li>Renderer in use: <span class="num" data-text="rendererName">—</span></li>
+          <li>JavaScript frame time: <span class="num" data-text="frameMs">—</span> · draw calls per frame: <span class="num" data-text="draws">—</span> · instances: <span class="num">18</span></li>
+          <li>Library bytes loaded for 3D: <span class="num" data-text="libBytes">0 KB</span> — the WebGL renderer is part of this HTML.</li>
+          <li>Colors are the page's tokens read at run time; switch the theme and the scene recolors.</li>
+        </ul></div>
+        <details class="rt-code"><summary>Read the reactive core (printed from the running code)</summary><pre id="rt-core" tabindex="0" aria-label="Source of reactive, effect and computed"></pre></details>
+      </div>
+
+      <figure class="frame figure" id="frame-3d" data-spec-scope aria-labelledby="rt-cap">
+        <a class="skipdemo" href="#system">Skip this demo</a>
+        <div class="frame-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="url">plm.internal/capacity/3d</span><span class="avatar">AG</span></div>
+        <div class="frame-body">
+          <div class="rt">
+            <div class="rt-toolbar" role="group" aria-label="Scene controls">
+              <fieldset class="seg" data-spec="gap:--spacingHorizontalXS|radius:--borderRadiusMedium" data-spec-name="Renderer switch"><legend>Renderer</legend>
+                <label><input type="radio" name="rt-renderer" value="webgl" data-model="renderer" checked><span>WebGL (hand-written)</span></label>
+                <label><input type="radio" name="rt-renderer" value="three" data-model="renderer"><span>Three.js <span class="muted">(loads on request)</span></span></label>
+              </fieldset>
+              <fieldset class="seg"><legend>Product line</legend>
+                <label><input type="radio" name="rt-line" value="all" data-model="line" checked><span>All</span></label>
+                <label><input type="radio" name="rt-line" value="Colocation" data-model="line"><span>Colocation</span></label>
+                <label><input type="radio" name="rt-line" value="Interconnection" data-model="line"><span>Interconnection</span></label>
+                <label><input type="radio" name="rt-line" value="Fabric" data-model="line"><span>Fabric</span></label>
+              </fieldset>
+              <fieldset class="seg"><legend>Height</legend>
+                <label><input type="radio" name="rt-metric" value="util" data-model="metric" checked><span>Utilization</span></label>
+                <label><input type="radio" name="rt-metric" value="count" data-model="metric"><span>SKUs</span></label>
+                <label><input type="radio" name="rt-metric" value="price" data-model="metric"><span>Avg price</span></label>
+              </fieldset>
+              <button class="switch" type="button" role="switch" aria-checked="false" data-model="live"><span class="track" aria-hidden="true"></span><span>Live feed</span></button>
+              <button class="switch" type="button" role="switch" aria-checked="false" data-model="rotate"><span class="track" aria-hidden="true"></span><span>Auto-rotate</span></button>
+            </div>
+            <div class="rt-stage" id="rt-stage" data-spec="radius:--borderRadiusXLarge" data-spec-name="3D stage">
+              <canvas id="rt-gl" role="img" aria-label="3D bar chart, loading"></canvas>
+              <canvas id="rt-three" role="img" aria-label="3D bar chart rendered with Three.js" hidden></canvas>
+              <ul class="rt-legend" id="rt-legend" aria-hidden="true"></ul>
+              <p class="rt-sel" id="rt-sel"></p>
+              <p class="rt-msg" id="rt-msg" role="status"></p>
+              <div class="rt-cam" role="group" aria-label="Camera">
+                <button class="btn" type="button" data-cam="up" aria-label="Tilt up">↑</button>
+                <button class="btn" type="button" data-cam="left" aria-label="Orbit left">←</button>
+                <button class="btn" type="button" data-cam="right" aria-label="Orbit right">→</button>
+                <button class="btn" type="button" data-cam="down" aria-label="Tilt down">↓</button>
+                <button class="btn" type="button" data-cam="in" aria-label="Zoom in">+</button>
+                <button class="btn" type="button" data-cam="out" aria-label="Zoom out">−</button>
+                <button class="btn btn-sm wide" type="button" data-cam="reset">Reset view</button>
+              </div>
+              <div class="rt-fallback" id="rt-fallback" hidden><p>WebGL 2 is not available in this browser, so the 3D view is off. The table below carries the same data.</p></div>
+            </div>
+            <div class="rt-foot" aria-label="Scene readout">
+              <span>Bars <b data-text="barsVisible">—</b></span>
+              <span>Tallest <b data-text="tallest">—</b></span>
+              <span>Selected <b data-text="selText">none</b></span>
+              <span>Frame <b data-text="frameMs">—</b></span>
+              <span>Draws <b data-text="draws">—</b></span>
+            </div>
+            <details class="rt-twin">
+              <summary>Same scene as a table — each cell selects its bar</summary>
+              <div class="scroll-x" tabindex="0" role="region" aria-labelledby="rt-table-cap">
+                <table class="data-table rt-table" id="rt-table"><caption id="rt-table-cap"></caption><thead><tr><th scope="col">Metro</th><th scope="col">Colocation</th><th scope="col">Interconnection</th><th scope="col">Fabric</th></tr></thead><tbody></tbody></table>
+              </div>
+            </details>
+            <div class="visually-hidden" role="status" id="rt-status"></div>
+          </div>
+        </div>
+        <figcaption id="rt-cap"><span>Recreated capacity view in 3D: metro along one axis, product line along the other, bar height from the selected metric. Values are illustrative and the telemetry feed is simulated; production data is confidential.</span><button class="btn btn-sm" type="button" data-scope-toggle="frame-3d" aria-pressed="false">Show specs</button></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ===================================================== SYSTEM -->
 <section id="system" class="band" aria-labelledby="system-h">
   <div class="wrap">
     <div class="section-head">
-      <div><p class="eyebrow"><span class="n">02</span>Design system</p><h2 id="system-h">The page is its own component library</h2></div>
+      <div><p class="eyebrow"><span class="n">03</span>Design system</p><h2 id="system-h">The page is its own component library</h2></div>
       <p class="fg2">Every control on this page is a story below, rendered in both color schemes from one token set. The controls remap tokens for the whole page — including the frames above — the way a Fluent provider would.</p>
     </div>
     <div class="controls" role="group" aria-label="Token controls">
@@ -869,7 +995,7 @@ console.log(res.status, res.body.length);</pre>
 <section id="ai-patterns" aria-labelledby="ai-h">
   <div class="wrap ai-grid">
     <div>
-      <p class="eyebrow"><span class="n">03</span>AI-powered UX</p>
+      <p class="eyebrow"><span class="n">04</span>AI-powered UX</p>
       <h2 id="ai-h">Trust is an interaction pattern, not a badge</h2>
       <p class="lede" style="font-size:var(--fontSizeBase400);line-height:var(--lineHeightBase400)">The panel answers questions about this portfolio. It is a deterministic demo — no model is called — built to the conventions a Copilot-style feature needs: it streams, it can be stopped, it cites sources you can click, it says when it has none, and it labels itself.</p>
       <dl class="patterns">
@@ -882,7 +1008,7 @@ console.log(res.status, res.body.length);</pre>
     <div class="copilot" role="region" aria-labelledby="copilot-h">
       <div class="copilot-head"><h3 id="copilot-h">Ask about this portfolio</h3><span class="ai-tag">Demo · no model call</span></div>
       <div class="copilot-log" id="copilot-log" role="log" aria-live="off" aria-label="Conversation">
-        <div class="msg msg-ai"><div class="body"><p>Hi — I can answer questions about Alex's work with references that link to the sections they come from. Try a suggestion, ask about mobile or Fluent UI, or ask anything else to see what "no source" looks like.</p></div></div>
+        <div class="msg msg-ai"><div class="body"><p>Hi — I can answer questions about Alex's work with references that link to the sections they come from. Try a suggestion, ask about 3D, Vue, mobile or Fluent UI, or ask anything else to see what "no source" looks like.</p></div></div>
       </div>
       <form class="copilot-form" id="copilot-form">
         <div class="suggest" id="copilot-suggest" role="group" aria-label="Suggested questions">
@@ -890,6 +1016,8 @@ console.log(res.status, res.body.length);</pre>
           <button type="button" class="btn btn-sm" data-q="How does Alex handle accessibility?">How does Alex handle accessibility?</button>
           <button type="button" class="btn btn-sm" data-q="Has Alex built AI-powered UX before?">Has Alex built AI-powered UX?</button>
           <button type="button" class="btn btn-sm" data-q="Has Alex shipped mobile apps?">Mobile apps?</button>
+          <button type="button" class="btn btn-sm" data-q="Can Alex build real-time 3D with Three.js or WebGL?">3D · WebGL?</button>
+          <button type="button" class="btn btn-sm" data-q="Does Alex know Vue and MVVM?">Vue · MVVM?</button>
           <button type="button" class="btn btn-sm" data-q="Does Alex know Fluent UI?">Fluent UI?</button>
         </div>
         <fieldset class="states" id="state-inspector"><legend>Inspect a state</legend>
@@ -911,7 +1039,7 @@ console.log(res.status, res.body.length);</pre>
 <section id="practice" class="band" aria-labelledby="practice-h">
   <div class="wrap">
     <div class="section-head">
-      <div><p class="eyebrow"><span class="n">04</span>Practice</p><h2 id="practice-h">How this page holds itself to the same standard</h2></div>
+      <div><p class="eyebrow"><span class="n">05</span>Practice</p><h2 id="practice-h">How this page holds itself to the same standard</h2></div>
     </div>
     <div class="practice-grid">
       <div class="card" id="practice-vitals">
@@ -922,8 +1050,8 @@ console.log(res.status, res.body.length);</pre>
           <li><span class="k">CLS</span><span class="v num" id="v-cls">…</span><span class="r" id="r-cls"></span></li>
           <li><span class="k">INP</span><span class="v num" id="v-inp">—</span><span class="r" id="r-inp">interact to measure</span></li>
           <li><span class="k">TTFB</span><span class="v num" id="v-ttfb">…</span><span class="r" id="r-ttfb"></span></li>
-          <li><span class="k">Transfer</span><span class="v num" id="v-size">…</span><span class="r">this HTML, no other requests</span></li>
-          <li><span class="k">DOM nodes</span><span class="v num" id="v-dom">…</span><span class="r">no framework, no build</span></li>
+          <li><span class="k">Transfer</span><span class="v num" id="v-size">…</span><span class="r">this HTML; Three.js only if you request it</span></li>
+          <li><span class="k">DOM nodes</span><span class="v num" id="v-dom">…</span><span class="r">no framework, no build — WebGL included</span></li>
         </ul>
         <div style="margin-top:12px"><button class="btn btn-sm" type="button" id="read-vitals">Read the current values</button></div>
       </div>
@@ -937,6 +1065,7 @@ console.log(res.status, res.body.length);</pre>
           <li><span class="ok" aria-hidden="true">✓</span><span>Keyboard: skip link first, native radio groups, real <code>tablist</code> with arrow keys, scrollable regions focusable and labeled, two-tone <code>:focus-visible</code>, Escape stops generation.</span></li>
           <li><span class="ok" aria-hidden="true">✓</span><span>Reflow at 360 CSS px with no horizontal scroll; frames use container queries; disclosure and chip targets ≥ 24 px, phone actions 44 px.</span></li>
           <li><span class="ok" aria-hidden="true">✓</span><span>Motion respects <code>prefers-reduced-motion</code> and the page's own Reduce-motion switch; theme changes use View Transitions only when motion is allowed; print forces the light scheme; a <code>forced-colors</code> block keeps selected, checked and current states visible.</span></li>
+          <li><span class="ok" aria-hidden="true">✓</span><span>The 3D canvases carry an accessible name that follows the scene state, a table twin where every cell selects its bar, and buttons for each pointer gesture; auto-rotate is off under reduced motion and the loop stops when the frame leaves the viewport.</span></li>
           <li><span class="todo" aria-hidden="true">!</span><span>Not yet run by me: NVDA + Edge, JAWS, VoiceOver + Safari, Windows High Contrast (a <code>forced-colors</code> stylesheet ships, unverified). Known exception: the redline overlay is visual-only — its text twin is in the token panel.</span></li>
         </ul>
         <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn btn-sm" type="button" id="selfcheck">Run the self-check now</button><span class="small muted">Heading order, landmarks, names, focus order, contrast.</span></div>
@@ -973,7 +1102,7 @@ console.log(res.status, res.body.length);</pre>
 <!-- ===================================================== CONTACT -->
 <section id="contact" class="contact" aria-labelledby="contact-h">
   <div class="wrap">
-    <div><p class="eyebrow"><span class="n">05</span>Contact</p><h2 id="contact-h">Available now — remote, PST hours</h2><p class="measure fg2" style="margin-top:var(--spacingHorizontalM)">The fastest way to check any of this is a 30-minute walkthrough of a case study with the code open. Email is best.</p></div>
+    <div><p class="eyebrow"><span class="n">06</span>Contact</p><h2 id="contact-h">Available now — remote, PST hours</h2><p class="measure fg2" style="margin-top:var(--spacingHorizontalM)">The fastest way to check any of this is a 30-minute walkthrough of a case study with the code open. Email is best.</p></div>
     <div class="contact-row">
       <a class="btn btn-primary" href="mailto:gx7181@gmail.com">gx7181@gmail.com</a>
       <a class="btn" href="tel:+14843797202">484-379-7202</a>
@@ -1247,6 +1376,7 @@ console.log(res.status, res.body.length);</pre>
   /* ======================= Copilot v2 ======================= */
   const KB = [
     { test: /\bequinix\b/, grounding: { tier: 'ok', text: 'Grounded · 2 sections on this page' }, answer: 'At Equinix (Jan – Dec 2024) Alex was UI Engineer / Front-End Architect on the product lifecycle platform from inception to production: migrated the legacy AngularJS UI to React 18 + TypeScript and Next.js, built the token-driven design system and component library, and shipped the SKU admin dashboards, a JSON-schema-driven form engine, the draft → review → approve → publish lifecycle, and virtualized data grids over tens of thousands of records. Reported outcomes: release cycle ≈40% shorter after the design system shipped; production defects ≈30% fewer once accessibility and visual-regression gates went into CI.', refs: [['Equinix case study', '#work-equinix'], ['Evidence card', '#top']], followups: ['How does Alex handle accessibility?', 'Has Alex shipped mobile apps?'] },
+    { test: /\b3d\b|three\.?js\b|\bwebgl\b|\bshaders?\b|\bglsl\b|\bvue\b|\bnuxt\b|\bpinia\b|\bvuex\b|\bmvvm\b|\bviewmodels?\b|\breactiv\w*|\bcanvas\b|\bvisuali[sz]\w*/, grounding: { tier: 'ok', text: 'Grounded · 3 sections on this page' }, answer: 'Yes — and it runs on this page. Section 02 renders the Equinix capacity data in real-time 3D two ways: a hand-written WebGL 2 renderer (one instanced draw call for the bars, GLSL Lambert shading, a shader-generated grid) and a Three.js InstancedMesh loaded only on request. Both read one ViewModel built with a Proxy-based reactive() / computed() / effect() core — the model Vue 3 implements — which also drives the controls, the KPIs, the table twin and the canvas\'s accessible name. At Equinix the production counterpart was the capacity, utilization and interconnection visualizations built with Canvas, WebGL and Three.js next to the D3 and Recharts dashboards; the Vue résumé version covers Vue 2/3, Vue Router and Pinia/Vuex programs.', refs: [['Real-time 3D section', '#realtime'], ['Equinix case study', '#work-equinix'], ['Capability map', '#practice-stack']], followups: ['What did Alex ship at Equinix?', 'How does Alex handle accessibility?'] },
     { test: /\bapple\b|\bdocumentation\b|\bdocusaurus\b|\bdesign systems?\b|\btokens?\b|\bstorybook\b/, grounding: { tier: 'ok', text: 'Grounded · 2 sections on this page' }, answer: 'At Apple (Dec 2024 – July 2026) Alex owned the design system and accessibility strategy for a documentation platform serving hundreds of engineering teams: design tokens defined in Figma Variables, exported through Style Dictionary and consumed in React; 60+ accessible React + TypeScript components documented in Storybook; the streaming conversational search experience; and axe-core + Playwright gates in CI that block merges on contrast, label, role and focus-order violations.', refs: [['Apple case study', '#work-apple'], ['Design system section', '#system']], followups: ['Has Alex built AI-powered UX before?', 'How does Alex handle accessibility?'] },
     { test: /\baccessib\w*|\ba11y\b|\bwcag\b|screen ?readers?|\baria\b|\baxe\b/, grounding: { tier: 'ok', text: 'Grounded · 3 sections on this page' }, answer: 'Alex treats accessibility as a gate, not an audit. At Apple, axe-core and Playwright run in CI and block merges on contrast, label, role and focus-order violations. At Wells Fargo, Alex owned WCAG 2.1 AA and ADA conformance on audit-reviewed lending flows, validated with JAWS, NVDA and VoiceOver. This page publishes its own statement listing exactly which tests were run and which were not — and has a self-check button.', refs: [['Apple case study', '#work-apple'], ['Wells Fargo case study', '#work-wells'], ['Accessibility statement', '#practice-a11y']], followups: ['What did Alex ship at Equinix?', 'Has Alex built AI-powered UX before?'] },
     { test: /\bai\b|\bcopilot\b|\bllm\b|\bchat\b|\bstream\w*|\bgenerative\b|\bgpt\b/, grounding: { tier: 'ok', text: 'Grounded · 3 sections on this page' }, answer: 'Yes. At Apple, Alex designed and built the streaming conversational documentation search — partial responses, progressive rendering, retry and fallback states, skeleton loading and latency-aware interaction. At eBay, Alex designed the AI-assisted UI patterns: confidence scoring, explainability indicators, feedback loops, and labeling AI-generated versus human-authored content. This panel applies those patterns: grounding tiers, a refusal state, stop-able streaming and clickable references.', refs: [['Apple case study', '#work-apple'], ['eBay — also shipped', '#also-ebay'], ['AI answer card story', '#system']], followups: ['What did Alex ship at Equinix?', 'Does Alex know Fluent UI?'] },
@@ -1330,7 +1460,7 @@ console.log(res.status, res.body.length);</pre>
     const hs = $$('h1,h2,h3,h4,h5,h6').filter(h => !h.closest('[inert]')); let prev = 0, skips = 0; hs.forEach(h => { const lv = +h.tagName[1]; if (prev && lv > prev + 1) skips++; prev = lv; }); out.push([skips === 0 && $$('h1').length === 1, `Heading order: ${hs.length} headings, one h1, ${skips} skipped level${skips === 1 ? '' : 's'}`]);
     const lm = ['banner', 'navigation', 'main', 'contentinfo'].map(r => !!document.querySelector(`[role="${r}"], ${r === 'banner' ? 'header' : r === 'navigation' ? 'nav' : r === 'main' ? 'main' : 'footer'}`)); out.push([lm.every(Boolean), 'Landmarks: banner, navigation, main, contentinfo present']);
     const regions = $$('[role="region"]').filter(r => !r.closest('[inert]')); const unl = regions.filter(r => !(r.getAttribute('aria-label') || r.getAttribute('aria-labelledby'))); out.push([unl.length === 0, `${regions.length} regions, ${unl.length} unlabeled`]);
-    const imgs = $$('img, svg[role="img"]').filter(i => !i.closest('[inert]')); const noname = imgs.filter(i => !(i.getAttribute('alt') || i.getAttribute('aria-label') || i.getAttribute('aria-labelledby'))); out.push([noname.length === 0, `${imgs.length} images, ${noname.length} without a name`]);
+    const imgs = $$('img, svg[role="img"], canvas[role="img"]').filter(i => !i.closest('[inert]')); const noname = imgs.filter(i => !(i.getAttribute('alt') || i.getAttribute('aria-label') || i.getAttribute('aria-labelledby'))); out.push([noname.length === 0, `${imgs.length} images, ${noname.length} without a name`]);
     const foc = $$('a[href],button,input,select,textarea,summary,[tabindex]').filter(e => !e.closest('[inert]') && !e.closest('[aria-hidden="true"]')); const pos = foc.filter(e => +e.getAttribute('tabindex') > 0); out.push([pos.length === 0, `${foc.length} focusable controls, ${pos.length} with tabindex > 0`]);
     let checked = 0; const fails = []; const seen = new Set(); const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     while (w.nextNode()) { const t = w.currentNode; if (!t.textContent.trim()) continue; const e = t.parentElement; if (!e || seen.has(e) || e.closest('[inert], .visually-hidden, script, style, .spec-layer, #spec-layer, [aria-hidden="true"]')) continue; seen.add(e); const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') continue; const r = e.getBoundingClientRect(); if (!r.width || !r.height) continue; const fg = parseC(e.namespaceURI === 'http://www.w3.org/2000/svg' ? cs.fill : cs.color); if (!fg) continue; let bg; if (e.namespaceURI === 'http://www.w3.org/2000/svg') { const prevRect = e.previousElementSibling; const f = prevRect && prevRect.tagName === 'rect' && cs.fill.includes('255, 255, 255') ? parseC(getComputedStyle(prevRect).fill) : null; bg = f ? f.rgb : bgOf(e.closest('svg')); } else bg = bgOf(e); const c = ratio(fg.rgb, bg); checked++; const size = parseFloat(cs.fontSize), bold = parseInt(cs.fontWeight) >= 700; const need = (size >= 24 || (size >= 18.66 && bold)) ? 3 : 4.5; if (c < need) fails.push({ text: t.textContent.trim().slice(0, 30), ratio: +c.toFixed(2) }); }
@@ -1340,11 +1470,279 @@ console.log(res.status, res.body.length);</pre>
   window.__selfcheck = selfcheck;
   $('#selfcheck').addEventListener('click', () => { const res = selfcheck(); const ul = $('#selfcheck-out'); ul.textContent = ''; res.forEach(([ok, text]) => { const li = el('li'); const m = el('span', ok ? 'ok' : 'bad', ok ? '✓' : '✗'); m.setAttribute('aria-hidden', 'true'); li.append(m, el('span', null, (ok ? 'Pass — ' : 'Fail — ') + text)); ul.appendChild(li); }); announce(`Self-check complete: ${res.filter(r => r[0]).length} of ${res.length} checks passed.`); });
 
+  /* ======================= Real-time 3D (section 02): reactive ViewModel → WebGL 2 / Three.js / DOM ======================= */
+  (function realtime3D() {
+    const stage = $('#rt-stage'); if (!stage) return;
+    const section = $('#realtime');
+    let needsDraw = true, rafId = 0, acc = 0, accN = 0, lastStat = 0;   // frame-loop state, declared first: effects below run synchronously
+    let dragging = false, down = null;
+
+    /* ---- Reactive core. Printed verbatim into the page, so it is written long-hand. (Vue 3 model: get → track, set → trigger, effects batched per microtask.) */
+    let activeEffect = null;
+    const targetMap = new WeakMap();   // raw object → Map(key → Set(effects))
+    const proxies = new WeakMap();     // raw object → its Proxy, so identity is stable
+
+    function track(target, key) {
+      if (!activeEffect) return;
+      let deps = targetMap.get(target);
+      if (!deps) targetMap.set(target, (deps = new Map()));
+      let dep = deps.get(key);
+      if (!dep) deps.set(key, (dep = new Set()));
+      dep.add(activeEffect);
+      activeEffect.deps.push(dep);
+    }
+
+    function trigger(target, key) {
+      const deps = targetMap.get(target);
+      const dep = deps && deps.get(key);
+      if (dep) Array.from(dep).forEach((e) => e.schedule());
+    }
+
+    function reactive(obj) {
+      if (proxies.has(obj)) return proxies.get(obj);
+      const proxy = new Proxy(obj, {
+        get(t, k, r) {
+          const v = Reflect.get(t, k, r);
+          track(t, k);
+          return v && typeof v === 'object' ? reactive(v) : v;
+        },
+        set(t, k, v, r) {
+          const changed = t[k] !== v;
+          const ok = Reflect.set(t, k, v, r);
+          if (changed) trigger(t, k);
+          return ok;
+        },
+      });
+      proxies.set(obj, proxy);
+      return proxy;
+    }
+
+    function effect(fn) {
+      const e = {
+        deps: [],
+        queued: false,
+        run() {
+          e.deps.forEach((d) => d.delete(e));   // re-collect dependencies on every run
+          e.deps.length = 0;
+          const prev = activeEffect;
+          activeEffect = e;
+          try { return fn(); } finally { activeEffect = prev; }
+        },
+        schedule() {
+          if (e.queued) return;
+          e.queued = true;
+          queueMicrotask(() => { e.queued = false; e.run(); });
+        },
+      };
+      e.run();
+      return e;
+    }
+
+    function computed(getter) {
+      const box = reactive({ value: undefined });
+      effect(() => { box.value = getter(); });
+      return box;
+    }
+
+    $('#rt-core').textContent = [track, trigger, reactive, effect, computed].map(f => f.toString()).join('\n\n');
+
+    /* ---- Model: the admin frame's 240 seeded SKUs, aggregated to metro × product line; a seeded telemetry walk for "Live feed" */
+    const CELLS = []; METROS.forEach((metro, mi) => LINES.forEach((line, li) => { const rs = ROWS.filter(r => r.metro === metro && r.line === line); CELLS.push({ id: metro + '|' + line, metro, line, mi, li, count: rs.length, util: rs.length ? rs.reduce((s, r) => s + r.util, 0) / rs.length : 0, price: rs.length ? rs.reduce((s, r) => s + r.price, 0) / rs.length : 0 }); }));
+    const walk = new Float32Array(CELLS.length); const wr = mulberry32(7);
+    const METRIC = { util: { label: 'utilization', max: 100, fmt: v => Math.round(v) + '%' }, count: { label: 'SKU count', max: Math.max(...CELLS.map(c => c.count)) + 2, fmt: v => num.format(Math.round(v)) }, price: { label: 'average price', max: 5000, fmt: v => money.format(v) } };
+
+    /* ---- ViewModel: no DOM node, no GL handle. Camera lives here so renderers can be swapped without moving it. */
+    const CAM0 = { yaw: 0.8, pitch: 0.5, dist: 15.5 };
+    const vm = reactive({ renderer: 'webgl', line: 'all', metric: 'util', live: false, rotate: !reduced(), sel: null, cam: { ...CAM0 }, tick: 0, theme: 0, visible: false, three: 'idle', frameMs: null, draws: 0, libBytes: 0 });
+    const cells = computed(() => { void vm.tick; const m = METRIC[vm.metric]; return CELLS.map((c, i) => { const on = vm.line === 'all' || c.line === vm.line; let v = c[vm.metric]; if (vm.metric === 'util') v = Math.max(0, Math.min(100, v + walk[i])); else if (vm.metric === 'price') v = v * (1 + walk[i] / 200); else v = Math.max(0, v + Math.round(walk[i] / 8)); return { ...c, on, value: v, h: on ? Math.max(0.04, Math.min(1, v / m.max)) : 0 }; }); });
+    const stats = computed(() => { const m = METRIC[vm.metric]; const on = cells.value.filter(c => c.on); const top = on.slice().sort((a, b) => b.value - a.value)[0]; const sel = vm.sel ? cells.value.find(c => c.id === vm.sel) : null; return { m, sel, barsVisible: num.format(on.length), tallest: top ? `${top.metro} · ${top.line} ${m.fmt(top.value)}` : '—', selText: sel ? `${sel.metro} · ${sel.line} ${m.fmt(sel.value)}` : 'none' }; });
+    const outs = computed(() => ({ ...stats.value, rendererName: vm.renderer === 'three' ? (vm.three === 'ready' ? 'Three.js r180 · InstancedMesh' : vm.three === 'loading' ? 'Three.js — loading from cdnjs…' : 'Three.js unavailable — WebGL shown') : 'WebGL 2, hand-written, instanced', frameMs: vm.frameMs == null ? 'idle' : vm.frameMs.toFixed(2) + ' ms', draws: String(vm.draws), libBytes: vm.libBytes > 0 ? (vm.libBytes / 1024).toFixed(0) + ' KB' : vm.libBytes < 0 ? 'loaded (size withheld by the CDN)' : '0 KB' }));
+    const toRGB = (() => { const probe = el('span'); probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden'; stage.appendChild(probe); return (css) => { probe.style.color = ''; probe.style.color = css; const m = getComputedStyle(probe).color.match(/rgba?\(([^)]+)\)/); const p = m ? m[1].split(',').map(parseFloat) : [128, 128, 128]; return [p[0] / 255, p[1] / 255, p[2] / 255]; }; })();
+    const palette = computed(() => { void vm.theme; const cs = getComputedStyle(stage); const tok = t => toRGB(cs.getPropertyValue(t).trim()); return { lines: { Colocation: tok('--colorBrandBackground'), Interconnection: tok('--colorPaletteGreenForeground1'), Fabric: tok('--colorPaletteMarigoldForeground1') }, bg: tok('--colorNeutralBackground2'), grid: tok('--colorNeutralStroke1'), hi: tok('--colorNeutralForeground1'), fg: tok('--colorNeutralForeground1') }; });
+    new MutationObserver(() => { vm.theme++; }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { vm.theme++; });
+
+    /* ---- DOM view: declarative two-way bindings */
+    $$('[data-text]', section).forEach(n => effect(() => { n.textContent = outs.value[n.dataset.text] ?? '—'; }));
+    $$('input[data-model]', section).forEach(i => { i.addEventListener('change', () => { if (i.checked) vm[i.dataset.model] = i.value; }); effect(() => { i.checked = vm[i.dataset.model] === i.value; }); });
+    $$('button[data-model]', section).forEach(b => { b.addEventListener('click', () => { vm[b.dataset.model] = !vm[b.dataset.model]; }); effect(() => { b.setAttribute('aria-checked', vm[b.dataset.model] ? 'true' : 'false'); }); });
+    const legend = $('#rt-legend'); effect(() => { const p = palette.value; legend.textContent = ''; LINES.forEach(l => { const li = el('li'); const sw = el('i'); sw.style.setProperty('--sw', `rgb(${p.lines[l].map(v => Math.round(v * 255)).join(',')})`); li.append(sw, document.createTextNode(l)); legend.appendChild(li); }); });
+    const selCard = $('#rt-sel'); effect(() => { const s = stats.value; selCard.textContent = ''; if (s.sel) selCard.append(el('b', null, `${s.sel.metro} · ${s.sel.line}`), document.createTextNode(` ${s.m.label}: ${s.m.fmt(s.sel.value)} · ${num.format(s.sel.count)} SKUs`)); });
+    let lastSel = null; effect(() => { const id = vm.sel; const s = stats.value; if (id === lastSel) return; lastSel = id; $('#rt-status').textContent = id ? `${s.selText} selected.` : 'Selection cleared.'; });
+    const glCanvas = $('#rt-gl'), threeCanvas = $('#rt-three');
+    effect(() => { const s = stats.value; const txt = `3D bar chart of ${s.m.label} by metro and product line: ${s.barsVisible} bars, tallest ${s.tallest}${s.sel ? ', selected ' + s.selText : ''}. The same values are in the table below.`; glCanvas.setAttribute('aria-label', txt); threeCanvas.setAttribute('aria-label', txt + ' Rendered with Three.js.'); });
+    // table twin: built once, updated in place so focus is never destroyed by a live tick
+    const tbody = $('#rt-table tbody'), tcap = $('#rt-table-cap'), cellBtn = new Map();
+    METROS.forEach(metro => { const tr = el('tr'); const th = el('th', null, metro); th.scope = 'row'; tr.appendChild(th); LINES.forEach(line => { const td = el('td', 'num'); const b = el('button'); b.type = 'button'; const id = metro + '|' + line; b.addEventListener('click', () => { vm.sel = vm.sel === id ? null : id; }); cellBtn.set(id, b); td.appendChild(b); tr.appendChild(td); }); tbody.appendChild(tr); });
+    effect(() => { const cs = cells.value, m = METRIC[vm.metric]; tcap.textContent = `${m.label[0].toUpperCase() + m.label.slice(1)} by metro and product line — illustrative values`; cs.forEach(c => { const b = cellBtn.get(c.id); b.textContent = c.on ? m.fmt(c.value) : '—'; b.disabled = !c.on; b.setAttribute('aria-pressed', vm.sel === c.id ? 'true' : 'false'); b.setAttribute('aria-label', `${c.metro}, ${c.line}: ${c.on ? m.fmt(c.value) : 'filtered out'}`); }); });
+
+    /* ---- Shared scene maths */
+    const SP = 1.5, HMAX = 3.6, TARGET = [0, 1.0, 0];
+    const M = {
+      persp(fov, asp, n, f) { const t = 1 / Math.tan(fov / 2), o = new Float32Array(16); o[0] = t / asp; o[5] = t; o[10] = (f + n) / (n - f); o[11] = -1; o[14] = 2 * f * n / (n - f); return o; },
+      look(e, c, up) { let zx = e[0] - c[0], zy = e[1] - c[1], zz = e[2] - c[2]; let l = Math.hypot(zx, zy, zz); zx /= l; zy /= l; zz /= l; let xx = up[1] * zz - up[2] * zy, xy = up[2] * zx - up[0] * zz, xz = up[0] * zy - up[1] * zx; l = Math.hypot(xx, xy, xz); xx /= l; xy /= l; xz /= l; const yx = zy * xz - zz * xy, yy = zz * xx - zx * xz, yz = zx * xy - zy * xx; return new Float32Array([xx, yx, zx, 0, xy, yy, zy, 0, xz, yz, zz, 0, -(xx * e[0] + xy * e[1] + xz * e[2]), -(yx * e[0] + yy * e[1] + yz * e[2]), -(zx * e[0] + zy * e[1] + zz * e[2]), 1]); },
+      mul(a, b) { const o = new Float32Array(16); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + j] * b[i * 4 + k]; o[i * 4 + j] = s; } return o; },
+      xform(m, p) { const x = p[0], y = p[1], z = p[2]; const w = m[3] * x + m[7] * y + m[11] * z + m[15]; return [(m[0] * x + m[4] * y + m[8] * z + m[12]) / w, (m[1] * x + m[5] * y + m[9] * z + m[13]) / w, (m[2] * x + m[6] * y + m[10] * z + m[14]) / w]; }
+    };
+    const eyeOf = (cam) => [TARGET[0] + cam.dist * Math.cos(cam.pitch) * Math.sin(cam.yaw), TARGET[1] + cam.dist * Math.sin(cam.pitch), TARGET[2] + cam.dist * Math.cos(cam.pitch) * Math.cos(cam.yaw)];
+    const posOf = (c) => [(c.mi - 2.5) * SP, (c.li - 1) * SP];
+    const cur = new Float32Array(CELLS.length);   // animated heights (view state, not model state)
+    const frameData = () => ({ cells: cells.value, heights: cur, cam: { yaw: vm.cam.yaw, pitch: vm.cam.pitch, dist: vm.cam.dist }, pal: palette.value, sel: vm.sel });
+
+    /* ---- View 1: WebGL 2, hand-written. One instanced draw for the bars, one for the shader grid. */
+    function GLRenderer(canvas) {
+      const gl = canvas.getContext('webgl2', { antialias: true, alpha: false, powerPreference: 'low-power' }); if (!gl) return null;
+      const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+      const prog = (vs, fs) => { const p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; };
+      const bars = prog(`#version 300 es
+        layout(location=0) in vec3 aPos; layout(location=1) in vec3 aNrm;
+        layout(location=2) in vec2 iOff; layout(location=3) in vec3 iScale; layout(location=4) in vec3 iCol; layout(location=5) in float iId;
+        uniform mat4 uVP; uniform float uSel;
+        out vec3 vNrm; out vec3 vCol; out float vSel;
+        void main() {
+          vec3 w = vec3(aPos.x * iScale.x + iOff.x, (aPos.y + 0.5) * iScale.y, aPos.z * iScale.z + iOff.y);
+          vNrm = aNrm; vCol = iCol; vSel = step(abs(iId - uSel), 0.5);
+          gl_Position = uVP * vec4(w, 1.0);
+        }`, `#version 300 es
+        precision mediump float;
+        in vec3 vNrm; in vec3 vCol; in float vSel;
+        uniform vec3 uLight; uniform vec3 uHi;
+        out vec4 o;
+        void main() {
+          float d = max(dot(normalize(vNrm), normalize(uLight)), 0.0);
+          float hemi = 0.5 + 0.5 * vNrm.y;
+          vec3 c = vCol * (0.40 + 0.48 * d + 0.14 * hemi);
+          c = mix(c, uHi, vSel * 0.42);
+          o = vec4(c, 1.0);
+        }`);
+      const grid = prog(`#version 300 es
+        layout(location=0) in vec2 aP; uniform mat4 uVP; uniform float uHalf; out vec2 vUv;
+        void main() { vec2 p = aP * uHalf; vUv = p; gl_Position = uVP * vec4(p.x, 0.0, p.y, 1.0); }`, `#version 300 es
+        precision mediump float; in vec2 vUv; uniform vec3 uFloor; uniform vec3 uLine; out vec4 o;
+        void main() {
+          vec2 g = abs(fract(vUv - 0.5) - 0.5) / fwidth(vUv);
+          float line = 1.0 - min(min(g.x, g.y), 1.0);
+          float fade = 1.0 - smoothstep(4.5, 9.5, length(vUv));
+          o = vec4(mix(uFloor, uLine, line * 0.85 * fade), 1.0);
+        }`);
+      // unit cube: 24 vertices with face normals, 36 indices
+      const P = [], N = [], I = []; [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].forEach((n) => { const t = n[1] ? [1, 0, 0] : [0, 1, 0]; const b = [n[1] * t[2] - n[2] * t[1], n[2] * t[0] - n[0] * t[2], n[0] * t[1] - n[1] * t[0]]; const base = P.length / 3; [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([s, r]) => { P.push(n[0] * .5 + t[0] * s * .5 + b[0] * r * .5, n[1] * .5 + t[1] * s * .5 + b[1] * r * .5, n[2] * .5 + t[2] * s * .5 + b[2] * r * .5); N.push(n[0], n[1], n[2]); }); I.push(base, base + 1, base + 2, base, base + 2, base + 3); });
+      const buf = (target, data, usage) => { const b = gl.createBuffer(); gl.bindBuffer(target, b); gl.bufferData(target, data, usage || gl.STATIC_DRAW); return b; };
+      const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+      buf(gl.ARRAY_BUFFER, new Float32Array(P)); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+      buf(gl.ARRAY_BUFFER, new Float32Array(N)); gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 0, 0);
+      buf(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(I));
+      const n = CELLS.length, off = new Float32Array(n * 2), scl = new Float32Array(n * 3), col = new Float32Array(n * 3), ids = new Float32Array(n);
+      const inst = [[2, 2, off], [3, 3, scl], [4, 3, col], [5, 1, ids]].map(([loc, size, arr]) => { const b = buf(gl.ARRAY_BUFFER, arr, gl.DYNAMIC_DRAW); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0); gl.vertexAttribDivisor(loc, 1); return [b, arr]; });
+      const gvao = gl.createVertexArray(); gl.bindVertexArray(gvao); buf(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1])); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      gl.bindVertexArray(null);
+      const U = (p, name) => gl.getUniformLocation(p, name);
+      const uVP = U(bars, 'uVP'), uSel = U(bars, 'uSel'), uLight = U(bars, 'uLight'), uHi = U(bars, 'uHi'), gVP = U(grid, 'uVP'), gHalf = U(grid, 'uHalf'), gFloor = U(grid, 'uFloor'), gLine = U(grid, 'uLine');
+      gl.enable(gl.DEPTH_TEST);
+      let vp = null;
+      const api = {
+        draws: 2, gl,
+        resize() { const dpr = Math.min(2, window.devicePixelRatio || 1); const w = Math.max(1, Math.round(canvas.clientWidth * dpr)), h = Math.max(1, Math.round(canvas.clientHeight * dpr)); if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; } },
+        draw(f) {
+          api.resize(); const w = canvas.width, h = canvas.height; gl.viewport(0, 0, w, h);
+          vp = M.mul(M.persp(38 * Math.PI / 180, w / h, 0.1, 100), M.look(eyeOf(f.cam), TARGET, [0, 1, 0]));
+          gl.clearColor(f.pal.bg[0], f.pal.bg[1], f.pal.bg[2], 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+          gl.useProgram(grid); gl.bindVertexArray(gvao); gl.uniformMatrix4fv(gVP, false, vp); gl.uniform1f(gHalf, 10); gl.uniform3fv(gFloor, f.pal.bg); gl.uniform3fv(gLine, f.pal.grid); gl.drawArrays(gl.TRIANGLES, 0, 6);
+          let selIdx = -1;
+          f.cells.forEach((c, i) => { const [x, z] = posOf(c); off[i * 2] = x; off[i * 2 + 1] = z; const hh = f.heights[i] * HMAX; scl[i * 3] = 1; scl[i * 3 + 1] = Math.max(0.001, hh); scl[i * 3 + 2] = 1; const k = f.pal.lines[c.line]; col[i * 3] = k[0]; col[i * 3 + 1] = k[1]; col[i * 3 + 2] = k[2]; ids[i] = i; if (c.id === f.sel) selIdx = i; });
+          gl.useProgram(bars); gl.bindVertexArray(vao); inst.forEach(([b, arr]) => { gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferSubData(gl.ARRAY_BUFFER, 0, arr); });
+          gl.uniformMatrix4fv(uVP, false, vp); gl.uniform1f(uSel, selIdx); gl.uniform3f(uLight, 0.55, 1, 0.65); gl.uniform3fv(uHi, f.pal.hi);
+          gl.drawElementsInstanced(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0, n); gl.bindVertexArray(null);
+        },
+        pick(px, py) { // nearest projected bar centre within 28 CSS px; ties go to the one closer to the camera
+          if (!vp) return null; const w = canvas.clientWidth, h = canvas.clientHeight; let best = null, bd = 28;
+          cells.value.forEach((c, i) => { if (!c.on) return; const [x, z] = posOf(c); const s = M.xform(vp, [x, cur[i] * HMAX / 2, z]); const sx = (s[0] * 0.5 + 0.5) * w, sy = (0.5 - s[1] * 0.5) * h; const d = Math.hypot(sx - px, sy - py) + s[2] * 0.001; if (d < bd) { bd = d; best = c.id; } });
+          return best;
+        },
+        dispose() { gl.getExtension('WEBGL_lose_context')?.loseContext(); }
+      };
+      return api;
+    }
+
+    /* ---- View 3: Three.js, loaded on request; reads the identical state */
+    function ThreeRenderer(T, canvas) {
+      const r = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'low-power' }); r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      const scene = new T.Scene(); const cam = new T.PerspectiveCamera(38, 1, 0.1, 100);
+      scene.add(new T.HemisphereLight(0xffffff, 0x666666, 1.1)); const dir = new T.DirectionalLight(0xffffff, 1.6); dir.position.set(4, 8, 5); scene.add(dir);
+      const mesh = new T.InstancedMesh(new T.BoxGeometry(1, 1, 1), new T.MeshLambertMaterial(), CELLS.length); scene.add(mesh);
+      let grid = null, gridKey = ''; const m4 = new T.Matrix4(), color = new T.Color(), bgc = new T.Color(), ray = new T.Raycaster(), ptr = new T.Vector2();
+      const css = (v) => `rgb(${v.map(x => Math.round(x * 255)).join(',')})`;
+      const api = {
+        draws: 2,
+        resize() { const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); },
+        draw(f) {
+          api.resize();
+          const key = css(f.pal.grid); if (key !== gridKey) { gridKey = key; if (grid) { scene.remove(grid); grid.geometry.dispose(); grid.material.dispose(); } grid = new T.GridHelper(20, 20, key, key); grid.material.transparent = true; grid.material.opacity = 0.7; scene.add(grid); }
+          scene.background = bgc.setStyle(css(f.pal.bg));
+          f.cells.forEach((c, i) => { const [x, z] = posOf(c); const hh = Math.max(0.001, f.heights[i] * HMAX); m4.makeScale(1, hh, 1).setPosition(x, hh / 2, z); mesh.setMatrixAt(i, m4); color.setStyle(css(f.pal.lines[c.line])); if (c.id === f.sel) color.lerp(new T.Color(css(f.pal.hi)), 0.42); mesh.setColorAt(i, color); });
+          mesh.instanceMatrix.needsUpdate = true; if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+          const e = eyeOf(f.cam); cam.position.set(e[0], e[1], e[2]); cam.lookAt(TARGET[0], TARGET[1], TARGET[2]);
+          r.render(scene, cam);
+        },
+        pick(px, py) { ptr.set((px / canvas.clientWidth) * 2 - 1, -((py / canvas.clientHeight) * 2 - 1)); ray.setFromCamera(ptr, cam); const hit = ray.intersectObject(mesh)[0]; if (!hit) return null; const c = cells.value[hit.instanceId]; return c && c.on ? c.id : null; },
+        dispose() { r.dispose(); }
+      };
+      return api;
+    }
+
+    /* ---- Renderer lifecycle */
+    let glr = null, three = null, active = null;
+    try { glr = GLRenderer(glCanvas); } catch (e) { glr = null; }
+    if (!glr) { $('#rt-fallback').hidden = false; glCanvas.hidden = true; glCanvas.removeAttribute('role'); $$('input[name="rt-renderer"]', section).forEach(i => { i.disabled = true; }); }
+    const show = (r, canvas) => { active = r; glCanvas.hidden = r !== glr; threeCanvas.hidden = r !== three; if (r) { r.resize(); needsDraw = true; } };
+    const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js';
+    const msg = $('#rt-msg');
+    function loadThree() {
+      vm.three = 'loading'; msg.textContent = 'Loading Three.js r180 from cdnjs — the only request this page makes besides itself.';
+      import(THREE_URL).then(T => { three = ThreeRenderer(T, threeCanvas); vm.three = 'ready'; const res = performance.getEntriesByType('resource').filter(e => e.name.includes('/three.js/')); const bytes = res.reduce((s, e) => s + (e.transferSize || e.encodedBodySize || 0), 0); vm.libBytes = bytes || -1; msg.textContent = ''; if (vm.renderer === 'three') show(three); announce('Three.js renderer ready; same camera, same data.'); })
+        .catch(() => { vm.three = 'error'; vm.renderer = 'webgl'; msg.textContent = 'Three.js could not be loaded here (offline or blocked). Staying on the hand-written WebGL renderer.'; });
+    }
+    effect(() => { const want = vm.renderer; if (want === 'three' && glr) { if (three) show(three); else if (vm.three === 'idle' || vm.three === 'error') queueMicrotask(loadThree); } else show(glr); });
+
+    /* ---- Frame loop: runs only while the frame is on screen; draws only when something changed */
+    effect(() => { void cells.value; void vm.cam.yaw; void vm.cam.pitch; void vm.cam.dist; void vm.sel; void palette.value; needsDraw = true; });
+    function tick(now) {
+      rafId = 0; if (!vm.visible || document.hidden || !active) { vm.frameMs = null; return; }
+      const cs = cells.value; let moving = false; const k = reduced() ? 1 : 0.14;
+      for (let i = 0; i < cs.length; i++) { const d = cs[i].h - cur[i]; if (Math.abs(d) > 0.0015) { cur[i] += d * k; moving = true; } else cur[i] = cs[i].h; }
+      if (vm.rotate && !reduced() && !dragging) { vm.cam.yaw += 0.0035; moving = true; }
+      if (moving || needsDraw) { needsDraw = false; const t0 = performance.now(); active.draw(frameData()); acc += performance.now() - t0; accN++; }
+      if (now - lastStat > 500) { lastStat = now; if (accN) { vm.frameMs = acc / accN; vm.draws = active.draws; acc = 0; accN = 0; } else if (vm.frameMs != null && !moving) { vm.frameMs = null; } }
+      rafId = requestAnimationFrame(tick);
+    }
+    const start = () => { if (!rafId && vm.visible && !document.hidden) rafId = requestAnimationFrame(tick); };
+    effect(() => { if (vm.visible) start(); });
+    document.addEventListener('visibilitychange', start);
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { es.forEach(e => { vm.visible = e.isIntersecting; }); }, { rootMargin: '80px 0px' }).observe(stage); else vm.visible = true;
+    if ('ResizeObserver' in window) new ResizeObserver(() => { if (glr) glr.resize(); if (three) three.resize(); needsDraw = true; start(); }).observe(stage);
+
+    /* ---- Live feed: a seeded random walk per bar at 1 Hz while on screen */
+    let liveTimer = 0;
+    effect(() => { const on = vm.live && vm.visible; clearInterval(liveTimer); liveTimer = 0; if (on) liveTimer = setInterval(() => { for (let i = 0; i < walk.length; i++) walk[i] = Math.max(-15, Math.min(15, walk[i] + (wr() - 0.5) * 6)); vm.tick++; }, 1000); });
+
+    /* ---- Interaction: drag to orbit, click to select, camera buttons for keyboard users */
+    stage.addEventListener('pointerdown', (ev) => { if (ev.target.tagName !== 'CANVAS' || ev.button !== 0) return; down = { x: ev.clientX, y: ev.clientY, yaw: vm.cam.yaw, pitch: vm.cam.pitch, id: ev.pointerId, moved: false }; ev.target.setPointerCapture(ev.pointerId); });
+    stage.addEventListener('pointermove', (ev) => { if (!down || ev.pointerId !== down.id) return; const dx = ev.clientX - down.x, dy = ev.clientY - down.y; if (!down.moved && Math.hypot(dx, dy) < 4) return; down.moved = true; dragging = true; vm.cam.yaw = down.yaw + dx * 0.008; vm.cam.pitch = Math.max(0.12, Math.min(1.35, down.pitch + dy * 0.006)); });
+    const endDrag = (ev) => { if (!down || ev.pointerId !== down.id) return; if (!down.moved && active && active.pick) { const r = ev.target.getBoundingClientRect(); const id = active.pick(ev.clientX - r.left, ev.clientY - r.top); vm.sel = (id && id !== vm.sel) ? id : null; } down = null; dragging = false; };
+    stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
+    $$('[data-cam]', section).forEach(b => b.addEventListener('click', () => { const c = vm.cam, k = b.dataset.cam; if (k === 'left') c.yaw -= 0.25; else if (k === 'right') c.yaw += 0.25; else if (k === 'up') c.pitch = Math.min(1.35, c.pitch + 0.12); else if (k === 'down') c.pitch = Math.max(0.12, c.pitch - 0.12); else if (k === 'in') c.dist = Math.max(7, c.dist * 0.85); else if (k === 'out') c.dist = Math.min(30, c.dist * 1.18); else { c.yaw = CAM0.yaw; c.pitch = CAM0.pitch; c.dist = CAM0.dist; } }));
+
+    window.__rt = { vm, cells, stats, palette, reactive, effect, computed };
+  })();
+
   /* ======================= Capability map with provenance ======================= */
-  // [group, capability, status, where, verbatim sentence, engagement, source] — source: 'pdf' = the linked résumé PDF, 'rn' = the React-Native résumé version, 'tcs' = the TCS résumé version, 'page' = this page
+  // [group, capability, status, where, verbatim sentence, engagement, source] — source: 'pdf' = the linked résumé PDF, 'rn' = the React-Native résumé version, 'tcs' = the TCS résumé version, 'vue' = the Vue résumé version, 'page' = this page
   const CAP = [
     ['Build', 'React 18 + TypeScript, Next.js', 'have', 'Apple, Equinix, eBay, Wells Fargo', 'Designed interactive documentation and search experiences including data-driven API explorers, live code playgrounds, and contextual navigation, built with React 18, Next.js, and Tailwind CSS.', 'Apple', 'pdf'],
-    ['Build', 'Angular · Vue', 'adj', 'Working knowledge; AngularJS → React migration at Equinix', 'Proficient in JavaScript (ES6+), React.js, React Native, and Angular, with strong experience in component-based architecture, state management (Redux), and front-end performance optimization.', 'summary', 'tcs'],
+    ['Build', 'JavaScript (ES6+) · TypeScript', 'have', 'Every program; this page is one file of hand-written JS — reactivity, WebGL, charts, the Copilot demo', 'Proficient in JavaScript (ES6+), React.js, React Native, and Angular, with strong experience in component-based architecture, state management (Redux), and front-end performance optimization.', 'summary', 'tcs'],
+    ['Build', 'Vue 3 · Pinia / Vuex · Vue Router', 'have', 'Vue 2/3 and Nuxt programs on the Vue résumé version; section 02 implements the reactivity model (reactive / computed / effect) from scratch', 'Strong proficiency in Vue.js (Vue 2/3), component-based architecture, Vue Router, Vuex/Pinia, reactive programming, and state management patterns', 'summary', 'vue'],
+    ['Build', 'MVVM · framework-agnostic ViewModels', 'have', 'Section 02: one ViewModel bound to WebGL, Three.js and the DOM; MVVM and Clean Architecture on the TCS and React-Native versions', 'Strong understanding of MVVM, Clean Architecture, and SOLID principles, applying them to build scalable, maintainable, and testable front-end and full-stack systems.', 'summary', 'tcs'],
+    ['Build', 'Angular', 'adj', 'Working knowledge; AngularJS → React migration at Equinix', 'Proficient in JavaScript (ES6+), React.js, React Native, and Angular, with strong experience in component-based architecture, state management (Redux), and front-end performance optimization.', 'summary', 'tcs'],
     ['Build', 'REST against .NET back ends', 'have', 'Comcast (ASP.NET Core services); Node BFF at Equinix', 'Implemented supporting RESTful services in ASP.NET Core for front-end/back-end communication, and collaborated in Agile/Scrum teams with developers, testers, and product owners.', 'Comcast', 'pdf'],
     ['Build', 'Python back ends', 'ramp', 'Not on the résumé; REST and BFF contract work transfers', 'Designed and optimized REST and GraphQL contracts for type-safe front-end/back-end communication, eliminating over-fetching and under-fetching across distributed applications.', 'Equinix', 'pdf'],
     ['Build', 'Micro-frontends (Module Federation)', 'have', 'Comcast', 'Decoupled the monolithic build-and-deploy pipeline into independent microfrontend modules composed at runtime with Module Federation, cutting release cadence from weekly to multiple deploys per day.', 'Comcast', 'rn'],
@@ -1354,7 +1752,8 @@ console.log(res.status, res.body.length);</pre>
     ['Design', 'Figma → tokens → code', 'have', 'Apple', 'Translated Figma designs into production-ready code at spec fidelity by pulling variables, auto-layout constraints, and type ramps directly from Dev Mode rather than eyeballing screenshots, removing the design-QA rework loop from the release cycle.', 'Apple', 'pdf'],
     ['Design', 'Design systems · Storybook', 'have', 'Apple, Equinix', 'Built and documented 60+ reusable, accessible React + TypeScript components in Storybook with usage guidelines, do/don\'t examples, props tables, and live a11y annotations, giving designers and engineers one shared source of truth for the UI.', 'Apple', 'pdf'],
     ['Design', 'Fluent UI React', 'ramp', 'Conventions on this page; no production Fluent React', 'This page follows Fluent 2 token naming; the résumé lists Material UI, Radix UI, shadcn/ui and Chakra UI, not Fluent UI React.', 'this page', 'page'],
-    ['Design', 'Motion: Framer Motion, GSAP, Canvas, WebGL', 'have', 'Equinix', 'Built highly interactive, animation-driven UI and web-based visualizations with HTML5 Canvas, WebGL, and Three.js, applying game-loop rendering patterns and Framer Motion / GSAP motion design for engaging real-time experiences.', 'Equinix', 'pdf'],
+    ['Data', 'Real-time 3D: WebGL 2, Three.js, HTML5 Canvas', 'have', 'Equinix visualizations; live in section 02 — instanced WebGL with GLSL shading and a Three.js InstancedMesh on the same state', 'Built highly interactive, animation-driven UI and web-based visualizations with HTML5 Canvas, WebGL, and Three.js, applying game-loop rendering patterns and Framer Motion / GSAP motion design for engaging real-time experiences.', 'Equinix', 'pdf'],
+    ['Design', 'Motion: Framer Motion, GSAP, Lottie', 'have', 'Equinix', 'Built highly interactive, animation-driven UI and web-based visualizations with HTML5 Canvas, WebGL, and Three.js, applying game-loop rendering patterns and Framer Motion / GSAP motion design for engaging real-time experiences.', 'Equinix', 'pdf'],
     ['Design', 'Headless CMS: Sitecore XM Cloud, AEM', 'have', 'Equinix, eBay, Wells Fargo', 'Integrated Sitecore XM Cloud with React 18 and Next.js using Sitecore JSS and Edge Delivery Services, mapping component-based page composition to SSR/SSG/ISR rendering strategies and improving SEO, LCP, and TTFB on high-traffic marketing and product surfaces.', 'Equinix', 'pdf'],
     ['Accessibility', 'WCAG 2.1 AA · axe · screen readers', 'have', 'Apple, Wells Fargo, US Bank', 'Automated accessibility enforcement in CI with axe-core and Playwright, blocking merges on contrast, label, role, and focus-order violations so compliance was verified continuously instead of audited after launch.', 'Apple', 'pdf'],
     ['Data', 'Dashboards: D3, Recharts, AG Grid', 'have', 'Equinix, Wells Fargo', 'Built B2B data visualization and dashboard experiences - capacity, utilization, pricing, and interconnection analytics - using D3.js, Recharts, and AG Grid, turning dense operational data into interactive, filterable, drill-down views for enterprise customers.', 'Equinix', 'pdf'],
@@ -1368,7 +1767,7 @@ console.log(res.status, res.body.length);</pre>
     ['Platform', 'Secure front end: CSP, OAuth 2.0 / JWT, PCI', 'have', 'Wells Fargo, eBay, Equinix', 'Delivered secure FinTech experiences on a regulated banking platform, implementing PCI-DSS-aligned data handling, KYC/AML-aware lending workflows, JWT/OAuth authentication, and audit-friendly compliant UI flows.', 'Wells Fargo', 'pdf'],
     ['Platform', 'Performance: Core Web Vitals budgets', 'have', 'Apple, Equinix', 'Optimized Core Web Vitals through code splitting, lazy loading, selective hydration, memoization, and caching, keeping LCP and TTFB within budget on content-heavy documentation pages.', 'Apple', 'pdf'],
   ];
-  const SRC_LABEL = { pdf: 'Résumé (linked PDF)', rn: 'Résumé, React-Native version', tcs: 'Résumé, TCS version', page: 'This page' };
+  const SRC_LABEL = { pdf: 'Résumé (linked PDF)', rn: 'Résumé, React-Native version', tcs: 'Résumé, TCS version', vue: 'Résumé, Vue version', page: 'This page' };
   const tb = $('#capmap tbody'); const PILL = { have: ['have', 'Have'], adj: ['adj', 'Adjacent'], ramp: ['ramp', 'Would ramp'] };
   CAP.forEach(([grp, cap, st, where, quote, eng, src]) => { const tr = el('tr'); const p = el('span', 'pill ' + PILL[st][0], PILL[st][1]); const td3 = el('td'); td3.appendChild(p); const det = el('details'); det.append(el('summary', null, SRC_LABEL[src] + ' · ' + eng)); const bq = el('blockquote', null, '“' + quote + '”'); det.appendChild(bq); const td5 = el('td'); td5.appendChild(det); tr.append(el('td', 'grp', grp), el('td', 'cap', cap), td3, el('td', null, where), td5); tb.appendChild(tr); });
 
